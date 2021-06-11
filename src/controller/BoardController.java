@@ -15,23 +15,22 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class BoardController implements Initializable {
-    ArrayList<ArrayList<Button>>buttons = new ArrayList<>();
+    Button[][] buttons = new Button[8][8];
     @FXML
     private BorderPane pane;
-    @FXML
-    private Label score1;
 
     @FXML
-    private Label score2;
+    private Label score1;
 
     @FXML
     private Label turn;
 
     @FXML
-    private Button withdraw;
+    private Label score11;
 
     @FXML
-    private Button exit;
+    private Label turn1;
+
     @FXML
     private VBox board;
 
@@ -40,7 +39,6 @@ public class BoardController implements Initializable {
         for (int i = 0; i <8 ; i++) {
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER);
-            ArrayList<Button>buttsinHbx = new ArrayList<>();
             for (int j = 0; j <8 ; j++) {
                 Button button = new Button();
                 button.setPrefHeight(100);
@@ -48,14 +46,11 @@ public class BoardController implements Initializable {
                 String id = i+""+j;
                 button.setId(id);
                 hBox.getChildren().add(button);
-                buttsinHbx.add(button);
+                buttons[i][j]=button;
             }
-            buttons.add(buttsinHbx);
             board.getChildren().add(hBox);
             board.setPrefHeight(500);
         }
-        exit.setOnAction(event -> {
-            Platform.exit();
-        });
+
     }
 }
