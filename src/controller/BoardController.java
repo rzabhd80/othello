@@ -39,11 +39,8 @@ public class BoardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         for (int i = 0; i <8 ; i++) {
             HBox hBox = new HBox();
-<<<<<<< HEAD
             hBox.setAlignment(Pos.CENTER);
-=======
             ArrayList<Button>buttsinHbx = new ArrayList<>();
->>>>>>> origin/master
             for (int j = 0; j <8 ; j++) {
                 Button button = new Button();
                 button.setPrefHeight(100);
