@@ -2,9 +2,11 @@ package controller;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -14,6 +16,8 @@ import java.util.ResourceBundle;
 
 public class BoardController implements Initializable {
     ArrayList<ArrayList<Button>>buttons = new ArrayList<>();
+    @FXML
+    private BorderPane pane;
     @FXML
     private Label score1;
 
@@ -35,9 +39,10 @@ public class BoardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         for (int i = 0; i <8 ; i++) {
             HBox hBox = new HBox();
+            hBox.setAlignment(Pos.CENTER);
             ArrayList<Button>buttsinHbx = new ArrayList<>();
             for (int j = 0; j <8 ; j++) {
-                Button button = new Button("");
+                Button button = new Button();
                 button.setPrefHeight(100);
                 button.setPrefWidth(100);
                 String id = i+""+j;
