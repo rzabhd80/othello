@@ -13,12 +13,15 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="799.0" prefWidth="1036.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <HBox prefHeight="46.0" prefWidth="1036.0" style="-fx-background-color: green; -fx-background-radius: 100;" BorderPane.alignment="CENTER">
+      <HBox prefHeight="18.0" prefWidth="1036.0" style="-fx-background-color: green; -fx-background-radius: 100;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="1036.0" text="reversi" textFill="#680909">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="49.0" prefWidth="1036.0" text="reversi" textFill="#680909">
                <font>
                   <Font name="Algerian" size="21.0" />
                </font>
+               <HBox.margin>
+                  <Insets bottom="20.0" />
+               </HBox.margin>
             </Label>
          </children>
       </HBox>
@@ -26,7 +29,7 @@
    <left>
       <VBox prefHeight="753.0" prefWidth="169.0" style="-fx-background-radius: 20;" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="391.0" prefWidth="169.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+            <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="391.0" prefWidth="169.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                <children>
                   <HBox prefHeight="110.0" prefWidth="152.0">
                      <children>
@@ -38,8 +41,8 @@
                               <Insets right="10.0" top="20.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="80.0" prefWidth="59.0" text="player1:" textFill="#ee1616" />
-                        <Label prefHeight="80.0" prefWidth="40.0" text="score" textFill="#0ddd22" />
+                        <Label prefHeight="81.0" prefWidth="59.0" text="player1:" textFill="#ee1616" />
+                        <Label fx:id="score1" prefHeight="80.0" prefWidth="40.0" text="score" textFill="#0ddd22" />
                      </children>
                      <VBox.margin>
                         <Insets left="10.0" />
@@ -59,35 +62,41 @@
                            </HBox.margin>
                         </ImageView>
                         <Label prefHeight="58.0" prefWidth="56.0" text="player2:" textFill="#cd0808" />
-                        <Label prefHeight="58.0" prefWidth="37.0" text="score" textFill="#0af862" />
+                        <Label fx:id="score2" prefHeight="58.0" prefWidth="37.0" text="score" textFill="#0af862" />
                      </children>
                      <padding>
                         <Insets left="10.0" />
                      </padding>
                   </HBox>
                   <Label fx:id="turn" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="161.0" text="turn" textFill="#280cdd" />
-                  <Button fx:id="withdraw" mnemonicParsing="false" prefHeight="31.0" prefWidth="162.0" style="-fx-background-color: brown;" text="withdraw">
+                  <Button fx:id="withdraw" mnemonicParsing="false" prefHeight="31.0" prefWidth="170.0" style="-fx-background-color: brown;" text="withdraw">
                      <VBox.margin>
                         <Insets top="100.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="exit" mnemonicParsing="false" prefHeight="31.0" prefWidth="69.0" style="-fx-background-color: brown;" text="exit">
+                  <Button fx:id="exit" mnemonicParsing="false" prefHeight="31.0" prefWidth="152.0" style="-fx-background-color: brown;" text="exit">
                      <VBox.margin>
-                        <Insets bottom="10.0" top="20.0" />
+                        <Insets bottom="10.0" left="10.0" top="20.0" />
                      </VBox.margin>
                   </Button>
                </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </VBox>
          </children>
          <opaqueInsets>
             <Insets top="20.0" />
          </opaqueInsets>
+         <padding>
+            <Insets top="50.0" />
+         </padding>
       </VBox>
    </left>
-   <center>
-      <AnchorPane prefHeight="759.0" prefWidth="829.0">
+   <right>
+      <AnchorPane prefHeight="759.0" prefWidth="829.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" />
          </BorderPane.margin></AnchorPane>
-   </center>
+   </right>
 </BorderPane>
