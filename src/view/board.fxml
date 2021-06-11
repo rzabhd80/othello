@@ -13,24 +13,23 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="799.0" prefWidth="1036.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BoardController">
    <top>
-      <BorderPane prefHeight="31.0" prefWidth="1036.0">
-         <center>
-            <HBox alignment="CENTER" prefHeight="31.0" prefWidth="984.0" style="-fx-background-color: green; -fx-background-radius: 20;" BorderPane.alignment="CENTER">
-               <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="1126.0" text="reversi" textFill="#680909">
-                     <font>
-                        <Font name="Algerian" size="21.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-         </center>
-      </BorderPane>
+      <HBox prefHeight="18.0" prefWidth="1036.0" style="-fx-background-color: green; -fx-background-radius: 100;" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="1073.0" text="reversi" textFill="#680909">
+               <font>
+                  <Font name="Algerian" size="21.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
    </top>
    <left>
-      <VBox prefHeight="768.0" prefWidth="173.0" style="-fx-background-radius: 20;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="753.0" prefWidth="169.0" style="-fx-background-radius: 20;" BorderPane.alignment="CENTER">
          <children>
-            <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="466.0" prefWidth="173.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+            <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="391.0" prefWidth="169.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                <children>
                   <HBox prefHeight="110.0" prefWidth="152.0">
                      <children>
@@ -75,7 +74,7 @@
                         <Insets top="100.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="exit" mnemonicParsing="false" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: brown;" text="exit">
+                  <Button fx:id="exit" mnemonicParsing="false" prefHeight="31.0" prefWidth="152.0" style="-fx-background-color: brown;" text="exit">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" top="20.0" />
                      </VBox.margin>
@@ -84,9 +83,6 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
             </VBox>
          </children>
          <opaqueInsets>
@@ -97,11 +93,13 @@
          </padding>
       </VBox>
    </left>
-   <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+   <right>
+      <AnchorPane prefHeight="759.0" prefWidth="829.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin>
          <children>
-            <VBox fx:id="board" layoutX="82.0" layoutY="98.0" prefHeight="568.0" prefWidth="699.0" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="82.0" AnchorPane.topAnchor="98.0" />
-         </children>
-      </AnchorPane>
-   </center>
+            <VBox fx:id="board" layoutX="63.0" layoutY="39.0" prefHeight="645.0" prefWidth="729.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
+         </children></AnchorPane>
+   </right>
 </BorderPane>
