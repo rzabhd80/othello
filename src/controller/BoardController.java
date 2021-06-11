@@ -7,10 +7,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
+import java.awt.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class BoardController implements Initializable {
@@ -25,16 +31,17 @@ public class BoardController implements Initializable {
 
     @FXML
     private Label turn;
+
+    @FXML
+    private Button withdraw;
+
+    @FXML
+    private Button exit;
     @FXML
     private VBox board;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        Image image = new Image("view/icons/test.png");
-//        pane.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
-
-        pane.getStylesheets().add("view/style.css");
-
         for (int i = 0; i <8 ; i++) {
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER);
@@ -45,6 +52,13 @@ public class BoardController implements Initializable {
                 button.setPrefWidth(100);
                 String id = i+""+j;
                 button.setId(id);
+                Image image = null;
+                //checking if the images work properly..
+                image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../view/icons/blackButt.png")));
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(60);
+                imageView.setFitHeight(60);
+                button.setGraphic(imageView);
                 hBox.getChildren().add(button);
                 buttsinHbx.add(button);
             }
