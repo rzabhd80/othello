@@ -15,7 +15,7 @@
    <top>
       <HBox prefHeight="18.0" prefWidth="1036.0" style="-fx-background-color: green; -fx-background-radius: 100;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="49.0" prefWidth="1036.0" text="reversi" textFill="#680909">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="144.0" text="reversi" textFill="#680909">
                <font>
                   <Font name="Algerian" size="21.0" />
                </font>
@@ -24,6 +24,9 @@
                </HBox.margin>
             </Label>
          </children>
+         <padding>
+            <Insets left="450.0" />
+         </padding>
       </HBox>
    </top>
    <left>
@@ -97,6 +100,9 @@
       <AnchorPane prefHeight="759.0" prefWidth="829.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" />
-         </BorderPane.margin></AnchorPane>
+         </BorderPane.margin>
+         <children>
+            <VBox fx:id="board" layoutX="63.0" layoutY="39.0" prefHeight="645.0" prefWidth="729.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
+         </children></AnchorPane>
    </right>
 </BorderPane>
