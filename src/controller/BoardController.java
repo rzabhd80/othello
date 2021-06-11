@@ -36,7 +36,8 @@ public class BoardController implements Initializable {
                 Button button = new Button("");
                 button.setPrefHeight(100);
                 button.setPrefWidth(100);
-                button.setId(String.valueOf(i)+String.valueOf(j));
+                String id = i+""+j;
+                button.setId(id);
                 hBox.getChildren().add(button);
             }
             board.getChildren().add(hBox);
