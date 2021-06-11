@@ -1,7 +1,7 @@
 #pane{
-    -fx-background-image: url("https://www.google.com/images/srpr/logo3w.png");
+    -fx-background-image: url("icons/test.png");
     -fx-background-repeat: stretch;
-    -fx-background-size: 900 506;
+    -fx-background-size: 980 630;
     -fx-background-position: center center;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
