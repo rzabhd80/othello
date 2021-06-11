@@ -11,22 +11,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:controller="controller.BoardController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="799.0" prefWidth="1036.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="799.0" prefWidth="1036.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BoardController">
    <top>
       <HBox prefHeight="18.0" prefWidth="1036.0" style="-fx-background-color: green; -fx-background-radius: 100;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="144.0" text="reversi" textFill="#680909">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="1073.0" text="reversi" textFill="#680909">
                <font>
                   <Font name="Algerian" size="21.0" />
                </font>
                <HBox.margin>
-                  <Insets bottom="20.0" />
+                  <Insets />
                </HBox.margin>
             </Label>
          </children>
-         <padding>
-            <Insets left="450.0" />
-         </padding>
       </HBox>
    </top>
    <left>
