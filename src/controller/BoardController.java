@@ -1,4 +1,5 @@
 package controller;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -10,9 +11,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class BoardController implements Initializable {
+    ArrayList<ArrayList<Button>>buttons = new ArrayList<>();
     @FXML
     private BorderPane pane;
     @FXML
@@ -36,7 +39,11 @@ public class BoardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         for (int i = 0; i <8 ; i++) {
             HBox hBox = new HBox();
+<<<<<<< HEAD
             hBox.setAlignment(Pos.CENTER);
+=======
+            ArrayList<Button>buttsinHbx = new ArrayList<>();
+>>>>>>> origin/master
             for (int j = 0; j <8 ; j++) {
                 Button button = new Button();
                 button.setPrefHeight(100);
@@ -44,8 +51,14 @@ public class BoardController implements Initializable {
                 String id = i+""+j;
                 button.setId(id);
                 hBox.getChildren().add(button);
+                buttsinHbx.add(button);
             }
+            buttons.add(buttsinHbx);
             board.getChildren().add(hBox);
+            board.setPrefHeight(500);
         }
+        exit.setOnAction(event -> {
+            Platform.exit();
+        });
     }
 }

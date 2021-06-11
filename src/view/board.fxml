@@ -1,99 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="638.0" prefWidth="984.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BoardController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="799.0" prefWidth="1036.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BoardController">
    <top>
-      <HBox prefHeight="18.0" prefWidth="1036.0" style="-fx-background-color: green; -fx-background-radius: 3;" BorderPane.alignment="CENTER" />
+      <HBox prefHeight="18.0" prefWidth="1036.0" style="-fx-background-color: green; -fx-background-radius: 100;" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="1073.0" text="reversi" textFill="#680909">
+               <font>
+                  <Font name="Algerian" size="21.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
    </top>
    <left>
       <VBox prefHeight="753.0" prefWidth="169.0" style="-fx-background-radius: 20;" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="642.0" prefWidth="149.0" style="-fx-background-color: #4caf50; -fx-background-radius: 10;">
+            <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="391.0" prefWidth="169.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                <children>
-                  <ImageView fitHeight="112.0" fitWidth="98.0">
-                     <image>
-                        <Image url="@icons/soccer-player.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="54.0" prefWidth="166.0" text="Amir Mahdi" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="Arial Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="score1" alignment="CENTER" prefHeight="38.0" prefWidth="40.0" text="0" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="turn" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="161.0" text="It`s Your turn" textFill="#280cdd" />
+                  <HBox prefHeight="110.0" prefWidth="152.0">
+                     <children>
+                        <ImageView fitHeight="42.0" fitWidth="37.0">
+                           <image>
+                              <Image url="@icons/soccer-player.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="10.0" top="20.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="81.0" prefWidth="59.0" text="player1:" textFill="#ee1616" />
+                        <Label fx:id="score1" prefHeight="80.0" prefWidth="40.0" text="score" textFill="#0ddd22" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                     <opaqueInsets>
+                        <Insets top="40.0" />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox prefHeight="96.0" prefWidth="162.0">
+                     <children>
+                        <ImageView fitHeight="42.0" fitWidth="37.0">
+                           <image>
+                              <Image url="@icons/soccer-player.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="58.0" prefWidth="56.0" text="player2:" textFill="#cd0808" />
+                        <Label fx:id="score2" prefHeight="58.0" prefWidth="37.0" text="score" textFill="#0af862" />
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
+                  <Label fx:id="turn" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="161.0" text="turn" textFill="#280cdd" />
+                  <Button fx:id="withdraw" mnemonicParsing="false" prefHeight="31.0" prefWidth="170.0" style="-fx-background-color: brown;" text="withdraw">
+                     <VBox.margin>
+                        <Insets top="100.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="exit" mnemonicParsing="false" prefHeight="31.0" prefWidth="152.0" style="-fx-background-color: brown;" text="exit">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" top="20.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
             </VBox>
          </children>
          <opaqueInsets>
             <Insets top="20.0" />
          </opaqueInsets>
+         <padding>
+            <Insets top="50.0" />
+         </padding>
       </VBox>
    </left>
    <right>
-      <VBox prefHeight="753.0" prefWidth="169.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="642.0" prefWidth="149.0" style="-fx-background-color: #4caf50; -fx-background-radius: 10;">
-               <children>
-                  <ImageView fitHeight="112.0" fitWidth="98.0">
-                     <image>
-                        <Image url="@icons/soccer-player.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="54.0" prefWidth="166.0" text="Reza" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="Arial Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="score11" alignment="CENTER" prefHeight="38.0" prefWidth="40.0" text="0" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="turn1" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="161.0" text="It`s Your turn" textFill="#280cdd" />
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
-            </VBox>
-         </children>
-      </VBox>
-   </right>
-   <center>
-      <VBox fx:id="board" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-radius: 10;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="759.0" prefWidth="829.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            <Insets bottom="10.0" />
          </BorderPane.margin>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </VBox>
-   </center>
+         <children>
+            <VBox fx:id="board" layoutX="63.0" layoutY="39.0" prefHeight="645.0" prefWidth="729.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
+         </children></AnchorPane>
+   </right>
 </BorderPane>
