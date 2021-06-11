@@ -8,9 +8,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class BoardController implements Initializable {
+    ArrayList<ArrayList<Button>>buttons = new ArrayList<>();
     @FXML
     private Label score1;
 
@@ -32,6 +34,7 @@ public class BoardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         for (int i = 0; i <8 ; i++) {
             HBox hBox = new HBox();
+            ArrayList<Button>buttsinHbx = new ArrayList<>();
             for (int j = 0; j <8 ; j++) {
                 Button button = new Button("");
                 button.setPrefHeight(100);
@@ -39,7 +42,9 @@ public class BoardController implements Initializable {
                 String id = i+""+j;
                 button.setId(id);
                 hBox.getChildren().add(button);
+                buttsinHbx.add(button);
             }
+            buttons.add(buttsinHbx);
             board.getChildren().add(hBox);
         }
     }
