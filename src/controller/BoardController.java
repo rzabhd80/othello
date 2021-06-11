@@ -6,9 +6,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -37,6 +36,11 @@ public class BoardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+//        Image image = new Image("view/icons/test.png");
+//        pane.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
+
+        pane.getStylesheets().add("view/style.css");
+
         for (int i = 0; i <8 ; i++) {
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER);
@@ -54,8 +58,5 @@ public class BoardController implements Initializable {
             board.getChildren().add(hBox);
             board.setPrefHeight(500);
         }
-        exit.setOnAction(event -> {
-            Platform.exit();
-        });
     }
 }

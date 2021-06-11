@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("view/board.fxml"));
         fxmlLoader.load();
-//        primaryStage.setFullScreen(true);
+        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(fxmlLoader.getRoot()));
         primaryStage.show();
     }
