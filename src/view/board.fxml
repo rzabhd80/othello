@@ -28,9 +28,9 @@
       </BorderPane>
    </top>
    <left>
-      <VBox prefHeight="753.0" prefWidth="169.0" style="-fx-background-radius: 20;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="768.0" prefWidth="173.0" style="-fx-background-radius: 20;" BorderPane.alignment="CENTER">
          <children>
-            <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="391.0" prefWidth="169.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+            <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="391.0" prefWidth="182.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                <children>
                   <HBox prefHeight="110.0" prefWidth="152.0">
                      <children>
@@ -94,13 +94,11 @@
          </padding>
       </VBox>
    </left>
-   <right>
-      <AnchorPane prefHeight="721.0" prefWidth="829.0" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets bottom="10.0" />
-         </BorderPane.margin>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <VBox fx:id="board" layoutX="108.0" layoutY="121.0" prefHeight="512.0" prefWidth="613.0" AnchorPane.bottomAnchor="121.0" AnchorPane.leftAnchor="108.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="121.0" />
-         </children></AnchorPane>
-   </right>
+            <VBox fx:id="board" layoutX="82.0" layoutY="63.0" prefHeight="642.0" prefWidth="699.0" />
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>

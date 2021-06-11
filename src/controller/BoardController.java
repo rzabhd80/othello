@@ -1,4 +1,5 @@
 package controller;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -46,6 +47,10 @@ public class BoardController implements Initializable {
             }
             buttons.add(buttsinHbx);
             board.getChildren().add(hBox);
+            board.setPrefHeight(500);
         }
+        exit.setOnAction(event -> {
+            Platform.exit();
+        });
     }
 }
