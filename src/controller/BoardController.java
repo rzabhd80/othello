@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class BoardController implements Initializable {
     ArrayList<ArrayList<Button>>buttons = new ArrayList<>();
     @FXML
     private BorderPane pane;
+
     @FXML
     private Label score1;
 
@@ -27,10 +29,11 @@ public class BoardController implements Initializable {
     private Label turn;
 
     @FXML
-    private Button withdraw;
+    private Label playerName1;
 
     @FXML
-    private Button exit;
+    private Label playerName2;
+
     @FXML
     private VBox board;
 
@@ -39,7 +42,9 @@ public class BoardController implements Initializable {
 //        Image image = new Image("view/icons/test.png");
 //        pane.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
 
-        pane.getStylesheets().add("view/style.css");
+//        pane.getStylesheets().add("view/style.css");
+//        playerName1.getStylesheets().add("view/style.css");
+
 
         for (int i = 0; i <8 ; i++) {
             HBox hBox = new HBox();
