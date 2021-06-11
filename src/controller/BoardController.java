@@ -25,12 +25,6 @@ public class BoardController implements Initializable {
 
     @FXML
     private Label turn;
-
-    @FXML
-    private Button withdraw;
-
-    @FXML
-    private Button exit;
     @FXML
     private VBox board;
 
