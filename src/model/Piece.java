@@ -1,9 +1,11 @@
 package model;
 
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 
 public class Piece extends Button {
     private Color pieceColor;
+    private ImageView imageView;
     private boolean selected;
     private Player ownerPLayer;
     public Color getPieceColor() {
@@ -28,5 +30,13 @@ public class Piece extends Button {
 
     public void setOwnerPLayer(Player ownerPLayer) {
         this.ownerPLayer = ownerPLayer;
+    }
+
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
     }
 }

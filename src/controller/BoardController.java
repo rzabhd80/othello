@@ -77,8 +77,8 @@ public class BoardController implements Initializable {
 
         image2 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(player2.getColorPic().getPicLink())));
         ImageView imageViewOfPlayer2 = new ImageView(image2);
-        imageViewOfPlayer2.setFitWidth(60);
-        imageViewOfPlayer2.setFitHeight(60);
+        imageViewOfPlayer2.setFitWidth(55);
+        imageViewOfPlayer2.setFitHeight(55);
         // piece.setGraphic!
 
 
@@ -95,19 +95,17 @@ public class BoardController implements Initializable {
                 piece.setId(id);
                 if (i==3 && j==3 ||
                         i==4 && j==4) {
+                    piece.setPieceColor(colorPLayer1);
                     Image image = null;
                     //checking if the images work properly..
                     piece.setGraphic(imageViewOfPlayer1);
+                    piece.setImageView(imageViewOfPlayer1);
                     piece.setOpacity(1.00);
                     piece.setStyle("-fx-background-color: transparent");
                 }else if (i==3 && j==4 ||
                         i==4 && j==3){
                     Image image = null;
-                    piece.setGraphic(imageViewOfPlayer2);
-                    piece.setOpacity(1.00);
-                    piece.setStyle("-fx-background-color: transparent");
-                    imageViewOfPlayer2.setFitWidth(55);
-                    imageViewOfPlayer2.setFitHeight(55);
+                    piece.setImageView(imageViewOfPlayer2);
                     piece.setGraphic(imageViewOfPlayer2);
                     piece.setOpacity(1.00);
                     piece.setStyle("-fx-background-color: transparent");
