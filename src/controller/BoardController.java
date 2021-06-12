@@ -13,17 +13,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Piece;
 import model.Player;
-
-import java.awt.*;
-import java.net.MalformedURLException;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class BoardController implements Initializable {
-
-
     //declaring the board...
     Piece[][] pieces = new Piece[8][8];
 
@@ -31,7 +28,7 @@ public class BoardController implements Initializable {
     private BorderPane pane;
 
     @FXML
-    private Label player1Name;
+    private Label playerName1;
 
     @FXML
     private Label score1;
@@ -40,7 +37,7 @@ public class BoardController implements Initializable {
     private Label turn;
 
     @FXML
-    private Label player2Name;
+    private Label playerName2;
     @FXML
     private Label score2;
 
@@ -61,8 +58,8 @@ public class BoardController implements Initializable {
         Player player2 = new Player();
         player2.setName("reza");
         player1.setName("amir");
-        player1Name.setText(player1.getName());
-        player2Name.setText(player2.getName());
+        playerName1.setText(player1.getName());
+        playerName2.setText(player2.getName());
         player1.setColorPic(greenButtLink);
         player2.setColorPic(blackButtLink);
         pane.getStylesheets().add("../view/style.css");
@@ -95,6 +92,36 @@ public class BoardController implements Initializable {
                 piece.setId(id);
                 hBox.getChildren().add(piece);
                 pieces[i][j] = piece;
+                Button button = new Button();
+                button.setPrefHeight(100);
+                button.setPrefWidth(100);
+                button.setOpacity(0.2);
+                id = i+""+j;
+                button.setId(id);
+                if (i==3 && j==3 ||
+                i==4 && j==4) {
+                    Image image = null;
+                    //checking if the images work properly..
+                    image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../view/icons/blackButt.png")));
+                    ImageView imageView = new ImageView(image);
+                    imageView.setFitWidth(56);
+                    imageView.setFitHeight(56);
+                    button.setGraphic(imageView);
+                    button.setOpacity(1.00);
+                    button.setStyle("-fx-background-color: transparent");
+                }else if (i==3 && j==4 ||
+                        i==4 && j==3){
+                    Image image = null;
+                    //checking if the images work properly..
+                    image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../view/icons/greenButton.png")));
+                    ImageView imageView = new ImageView(image);
+                    imageView.setFitWidth(55);
+                    imageView.setFitHeight(55);
+                    button.setGraphic(imageView);
+                    button.setOpacity(1.00);
+                    button.setStyle("-fx-background-color: transparent");
+                }
+                hBox.getChildren().add(button);
             }
             board.getChildren().add(hBox);
             board.setPrefHeight(500);
