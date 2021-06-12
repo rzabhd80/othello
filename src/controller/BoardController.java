@@ -103,7 +103,9 @@ public class BoardController implements Initializable {
                 }else if (i==3 && j==4 ||
                         i==4 && j==3){
                     Image image = null;
-
+                    piece.setGraphic(imageViewOfPlayer2);
+                    piece.setOpacity(1.00);
+                    piece.setStyle("-fx-background-color: transparent");
                     image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../view/icons/greenButton.png")));
                     ImageView imageView = new ImageView(image);
                     imageView.setFitWidth(55);
