@@ -39,6 +39,11 @@ public class BoardController implements Initializable {
     private Button exit;
     @FXML
     private VBox board;
+    @FXML private VBox leftVbox;
+
+    @FXML
+    private VBox rightVbox;
+    @FXML private Label playerName1;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

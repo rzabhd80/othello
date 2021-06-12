@@ -17,7 +17,7 @@
    <left>
       <VBox prefHeight="753.0" prefWidth="169.0" style="-fx-background-radius: 20;" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="642.0" prefWidth="149.0" style="-fx-background-color: #94af76; -fx-background-radius: 10;">
+            <VBox fx:id="leftVbox" alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="642.0" prefWidth="149.0" style="-fx-background-color: #94af76; -fx-background-radius: 10;">
                <children>
                   <ImageView fitHeight="112.0" fitWidth="98.0">
                      <image>
@@ -55,7 +55,7 @@
    <right>
       <VBox prefHeight="753.0" prefWidth="169.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="642.0" prefWidth="149.0" style="-fx-background-color: #94af76; -fx-background-radius: 10;">
+            <VBox fx:id="rightVbox" alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="642.0" prefWidth="149.0" style="-fx-background-color: #94af76; -fx-background-radius: 10;">
                <children>
                   <ImageView fitHeight="112.0" fitWidth="98.0">
                      <image>
