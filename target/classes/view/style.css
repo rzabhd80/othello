@@ -11,3 +11,26 @@
     -fx-stroke: green;
 
 }
+
+#leftVbox {
+    -fx-border-color: #005804;
+    -fx-border-insets: 5;
+    -fx-border-width: 3;
+    -fx-border-radius: 5;
+}
+
+#rightVbox {
+    -fx-border-color: #005804;
+    -fx-border-insets: 5;
+    -fx-border-width: 3;
+    -fx-border-radius: 5;
+}
+
+
+#board {
+    -fx-border-color: #005804;
+    -fx-border-insets: 5;
+    -fx-border-width: 3;
+    -fx-border-radius: 5;
+}
+
