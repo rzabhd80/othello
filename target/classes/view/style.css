@@ -1,5 +1,5 @@
 #pane {
-    -fx-background-image: url("icons/test.png");
+    -fx-background-image: url("icons/t2.jpg");
     -fx-background-repeat: stretch;
     -fx-background-size: 980 630;
     -fx-background-position: center center;
@@ -34,3 +34,6 @@
     -fx-border-radius: 5;
 }
 
+#playerName1{
+    -webkit-text-stroke: 2px red;
+}
