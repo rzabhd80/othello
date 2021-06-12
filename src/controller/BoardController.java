@@ -50,15 +50,32 @@ public class BoardController implements Initializable {
                 Button button = new Button();
                 button.setPrefHeight(100);
                 button.setPrefWidth(100);
+                button.setOpacity(0.2);
                 String id = i+""+j;
                 button.setId(id);
-                Image image = null;
-                //checking if the images work properly..
-                image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../view/icons/blackButt.png")));
-                ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(60);
-                imageView.setFitHeight(60);
-                button.setGraphic(imageView);
+                if (i==3 && j==3 ||
+                i==4 && j==4) {
+                    Image image = null;
+                    //checking if the images work properly..
+                    image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../view/icons/blackButt.png")));
+                    ImageView imageView = new ImageView(image);
+                    imageView.setFitWidth(56);
+                    imageView.setFitHeight(56);
+                    button.setGraphic(imageView);
+                    button.setOpacity(1.00);
+                    button.setStyle("-fx-background-color: transparent");
+                }else if (i==3 && j==4 ||
+                        i==4 && j==3){
+                    Image image = null;
+                    //checking if the images work properly..
+                    image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../view/icons/greenButton.png")));
+                    ImageView imageView = new ImageView(image);
+                    imageView.setFitWidth(55);
+                    imageView.setFitHeight(55);
+                    button.setGraphic(imageView);
+                    button.setOpacity(1.00);
+                    button.setStyle("-fx-background-color: transparent");
+                }
                 hBox.getChildren().add(button);
                 buttsinHbx.add(button);
             }
