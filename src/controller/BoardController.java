@@ -39,9 +39,11 @@ public class BoardController implements Initializable {
     private Button exit;
     @FXML
     private VBox board;
-
+    public static String blackButtLink = "../view/icons/blackButt.png";
+    public static String greenButtLink = "../view/icons/greenButton.png";
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        pane.getStylesheets().add("../view/style.css");
         for (int i = 0; i <8 ; i++) {
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER);
