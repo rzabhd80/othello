@@ -25,46 +25,51 @@ import java.util.ResourceBundle;
 public class BoardController implements Initializable {
     @FXML private BorderPane pane;
     @FXML private Label score1;
-
     @FXML private Label score2;
-
     @FXML private Label turn;
-
     @FXML private Button withdraw;
-
-    @FXML private Button exit;
     @FXML private VBox board;
     @FXML private VBox leftVbox;
-
     @FXML private VBox rightVbox;
     @FXML private Label playerName1;
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initPieces();
+        System.out.println();
     }
 
 
 
     /**
-     * it will be called only at the beginning of the game
-     * and creates the pieces for start playing the game
-     * only 4 pieces is selected. 2 green and 2 white at the center of board
-     * so all the pieces are unselectable
+     * it will be called only at the beginning of the game.
+     * and creates the pieces for start playing the game.
+     * only 4 pieces is selected. 2 green and 2 white at the center of board.
+     * so the other pieces are unselectable
+     * @author AmirMahdi
      */
+    private final Piece[][] pieces = new Piece[8][8];
     private void initPieces(){
     for (int i = 0; i <8 ; i++) {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
         for (int j = 0; j <8 ; j++) {
             if (i==3 && j==3 || i==4 && j==4) {
-                hBox.getChildren().add(new Piece(Status.selected, Color.green));
+                pieces[i][j] = new Piece(Status.selected, Color.green);
+                hBox.getChildren().add(pieces[i][j]);
+//                hBox.getChildren().add(new Piece(Status.selected, Color.green));
             }
             else if (i==3 && j==4 || i==4 && j==3){
-                hBox.getChildren().add(new Piece(Status.selected, Color.white));
+                pieces[i][j] = new Piece(Status.selected, Color.white);
+                hBox.getChildren().add(pieces[i][j]);
+//                hBox.getChildren().add(new Piece(Status.selected, Color.white));
             }
             else {
-                hBox.getChildren().add(new Piece(Status.unselectable));
+                pieces[i][j] = new Piece(Status.unselectable);
+                hBox.getChildren().add(pieces[i][j]);
+//                hBox.getChildren().add(new Piece(Status.unselectable));
             }
         }
         board.getChildren().add(hBox);

@@ -50,6 +50,7 @@ public class Piece extends Button {
      * but this constructor just made pieces with "unselectable" status and with no color (color is null)
      * and always status is selected in this
      * @param status is always unselectable
+     * @author AmirMahdi
      */
     public Piece(Status status) {
         this.status = status;
