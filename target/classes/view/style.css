@@ -34,3 +34,6 @@
     -fx-border-radius: 5;
 }
 
+#playerName1{
+    -webkit-text-stroke: 2px red;
+}
