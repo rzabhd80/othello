@@ -13,6 +13,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import model.Color;
+import model.Piece;
+import model.Status;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,73 +23,53 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class BoardController implements Initializable {
-    ArrayList<ArrayList<Button>>buttons = new ArrayList<>();
-    @FXML
-    private BorderPane pane;
-    @FXML
-    private Label score1;
+    @FXML private BorderPane pane;
+    @FXML private Label score1;
 
-    @FXML
-    private Label score2;
+    @FXML private Label score2;
 
-    @FXML
-    private Label turn;
+    @FXML private Label turn;
 
-    @FXML
-    private Button withdraw;
+    @FXML private Button withdraw;
 
-    @FXML
-    private Button exit;
-    @FXML
-    private VBox board;
+    @FXML private Button exit;
+    @FXML private VBox board;
     @FXML private VBox leftVbox;
 
-    @FXML
-    private VBox rightVbox;
+    @FXML private VBox rightVbox;
     @FXML private Label playerName1;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        for (int i = 0; i <8 ; i++) {
-            HBox hBox = new HBox();
-            hBox.setAlignment(Pos.CENTER);
-            ArrayList<Button>buttsinHbx = new ArrayList<>();
-            for (int j = 0; j <8 ; j++) {
-                Button button = new Button();
-                button.setPrefHeight(100);
-                button.setPrefWidth(100);
-                button.setOpacity(0.2);
-                String id = i+""+j;
-                button.setId(id);
-                if (i==3 && j==3 ||
-                        i==4 && j==4) {
-                    Image image = null;
-                    //checking if the images work properly..
-                    image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../view/icons/blackButt.png")));
-                    ImageView imageView = new ImageView(image);
-                    imageView.setFitWidth(56);
-                    imageView.setFitHeight(56);
-                    button.setGraphic(imageView);
-                    button.setOpacity(1.00);
-                    button.setStyle("-fx-background-color: transparent");
-                }else if (i==3 && j==4 ||
-                        i==4 && j==3){
-                    Image image = null;
-                    //checking if the images work properly..
-                    image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../view/icons/greenButton.png")));
-                    ImageView imageView = new ImageView(image);
-                    imageView.setFitWidth(55);
-                    imageView.setFitHeight(55);
-                    button.setGraphic(imageView);
-                    button.setOpacity(1.00);
-                    button.setStyle("-fx-background-color: transparent");
-                }
-                hBox.getChildren().add(button);
-                buttsinHbx.add(button);
-            }
-            buttons.add(buttsinHbx);
-            board.getChildren().add(hBox);
-            board.setPrefHeight(500);
-        }
+        initPieces();
     }
+
+
+
+    /**
+     * it will be called only at the beginning of the game
+     * and creates the pieces for start playing the game
+     * only 4 pieces is selected. 2 green and 2 white at the center of board
+     * so all the pieces are unselectable
+     */
+    private void initPieces(){
+    for (int i = 0; i <8 ; i++) {
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER);
+        for (int j = 0; j <8 ; j++) {
+            if (i==3 && j==3 || i==4 && j==4) {
+                hBox.getChildren().add(new Piece(Status.selected, Color.green));
+            }
+            else if (i==3 && j==4 || i==4 && j==3){
+                hBox.getChildren().add(new Piece(Status.selected, Color.white));
+            }
+            else {
+                hBox.getChildren().add(new Piece(Status.unselectable));
+            }
+        }
+        board.getChildren().add(hBox);
+
+
+    }
+}
 }

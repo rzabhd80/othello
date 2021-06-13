@@ -1,3 +1,5 @@
 package model;
 
-public enum Color { black , white }
+public enum Color {
+    green , white
+}
