@@ -15,7 +15,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import model.Color;
 import model.Piece;
-import model.Player;
+import model.Status;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,99 +23,53 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class BoardController implements Initializable {
-    private String greenButtLink = "../view/icons/greenButton.png";
-    private String blackButtLink = "../view/icons/blackButt.png";
-    Piece[][]pieces = new Piece[8][8];
-    @FXML
-    private BorderPane pane;
-    @FXML
-    private Label score1;
+    @FXML private BorderPane pane;
+    @FXML private Label score1;
 
-    @FXML
-    private Label score2;
+    @FXML private Label score2;
 
-    @FXML
-    private Label turn;
+    @FXML private Label turn;
 
-    @FXML
-    private Button withdraw;
+    @FXML private Button withdraw;
 
-    @FXML
-    private Button exit;
-    @FXML
-    private VBox board;
+    @FXML private Button exit;
+    @FXML private VBox board;
     @FXML private VBox leftVbox;
 
-    @FXML
-    private VBox rightVbox;
+    @FXML private VBox rightVbox;
     @FXML private Label playerName1;
-    @FXML
-    private Label playerName2;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        //.....setting up players...
-
-        Player player1 = new Player();
-        Player player2 = new Player();
-        playerName1.setText(player1.getName());
-        playerName2.setText(player2.getName());
-        Color colorPLayer1 = new Color(greenButtLink);
-        Color colorPLayer2 = new Color(blackButtLink);
-        player1.setColorPic(colorPLayer1);
-        player2.setColorPic(colorPLayer2);
-        pane.getStylesheets().add("../view/style.css");
+        initPieces();
+    }
 
 
-        //preparing image views for being set....
-        Image image1 =null;
-        Image image2 =null;
-        image1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(player1.getColorPic().getPicLink())));
-        ImageView imageViewOfPlayer1 = new ImageView(image1);
-        imageViewOfPlayer1.setFitWidth(56);
-        imageViewOfPlayer1.setFitHeight(56);
 
-        image2 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(player2.getColorPic().getPicLink())));
-        ImageView imageViewOfPlayer2 = new ImageView(image2);
-        imageViewOfPlayer2.setFitWidth(55);
-        imageViewOfPlayer2.setFitHeight(55);
-        // piece.setGraphic!
-
-
+    /**
+     * it will be called only at the beginning of the game
+     * and creates the pieces for start playing the game
+     * only 4 pieces is selected. 2 green and 2 white at the center of board
+     * so all the pieces are unselectable
+     */
+    private void initPieces(){
         for (int i = 0; i <8 ; i++) {
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER);
-            ArrayList<Button>buttsinHbx = new ArrayList<>();
             for (int j = 0; j <8 ; j++) {
-                Piece piece = new Piece();
-                piece.setPrefHeight(100);
-                piece.setPrefWidth(100);
-                piece.setOpacity(0.2);
-                String id = i+""+j;
-                piece.setId(id);
-                if (i==3 && j==3 ||
-                        i==4 && j==4) {
-                    piece.setPieceColor(colorPLayer1);
-                    Image image = null;
-                    //checking if the images work properly..
-                    piece.setGraphic(imageViewOfPlayer1);
-                    piece.setImageView(imageViewOfPlayer1);
-                    piece.setOpacity(1.00);
-                    piece.setStyle("-fx-background-color: transparent");
-                }else if (i==3 && j==4 ||
-                        i==4 && j==3){
-                    Image image = null;
-                    piece.setImageView(imageViewOfPlayer2);
-                    piece.setGraphic(imageViewOfPlayer2);
-                    piece.setOpacity(1.00);
-                    piece.setStyle("-fx-background-color: transparent");
+                if (i==3 && j==3 || i==4 && j==4) {
+                    hBox.getChildren().add(new Piece(Status.selected, Color.green));
                 }
-                pieces[i][j] = piece;
-                hBox.getChildren().add(piece);
-                buttsinHbx.add(piece);
+                else if (i==3 && j==4 || i==4 && j==3){
+                    hBox.getChildren().add(new Piece(Status.selected, Color.white));
+                }
+                else {
+                    hBox.getChildren().add(new Piece(Status.unselectable));
+                }
             }
             board.getChildren().add(hBox);
-            board.setPrefHeight(500);
+
+
         }
     }
 }
