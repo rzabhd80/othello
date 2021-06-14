@@ -92,6 +92,14 @@ public class BoardController implements Initializable {
             }
         }
     }
+
+    /**
+     * method is used to check if the items on the left side of black piece are selectable
+     * @param piece
+     * @param i
+     * @param j
+     * @author reza bh
+     */
     private void checkLeftRowForBlack(Piece piece,int i,int j){
         if (piece.getPieceColor() != null && (piece.getPieceColor().equals(Color.white))){
             //if the next piece has diff color or its null, it doesnt need
@@ -116,6 +124,73 @@ public class BoardController implements Initializable {
                 }
             }
         }
+    }
+
+    /**
+     *  method is used for checking the electability of pieces up the black piece
+     * @param piece
+     * @param i
+     * @param j
+     * @author reza bh
+     */
+    private void checkTopOfBlack(Piece piece,int i,int j){
+        if (piece.getPieceColor() != null && (piece.getPieceColor().equals(Color.white))){
+            //if the next piece has diff color or its null, it doesnt need
+            if (i-1>0&&pieces[i-1][j].getPieceColor()!=null) {
+                if (!pieces[i-1][j].getPieceColor().equals(piece.getPieceColor()) && pieces[i-1][j].getStatus().
+                        equals(Status.selected)) {
+                    //checks all next buttons to see if any of them is white
+                    for (int k = i; k > 0; k--) {
+                        if (foundWhitePiece(pieces[k][j])) {
+                            // checking if there is a empty cell after white buttons
+                            for (int p = k -1 ; p > 0; p--) {
+                                if (pieces[p][j].getStatus().equals(Status.unselectable)) {
+                                    pieces[p][j].setPieceSelectable();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    //then we need to check previous pieces
+                    return;
+                }
+            }
+        }
+    }
+
+    /**
+     * method is used to check if any button must be selectable in the top on given black piece
+     * @param piece
+     * @param i
+     * @param j
+     * @author reza BH
+     */
+    private void checkingDownOfBlack(Piece piece,int i,int j){
+        if (piece.getPieceColor() != null && (piece.getPieceColor().equals(Color.white))){
+            //if the next piece has diff color or its null, it doesnt need
+            if (i-1>0&&pieces[i+1][j].getPieceColor()!=null) {
+                if (!pieces[i+1][j].getPieceColor().equals(piece.getPieceColor()) && pieces[i+1][j].getStatus().
+                        equals(Status.selected)) {
+                    //checks all next buttons to see if any of them is white
+                    for (int k = i; k <8 ; k++) {
+                        if (foundWhitePiece(pieces[k][j])) {
+                            // checking if there is a empty cell after white buttons
+                            for (int p = k -1 ; p < 8; p++) {
+                                if (pieces[p][j].getStatus().equals(Status.unselectable)) {
+                                    pieces[p][j].setPieceSelectable();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    //then we need to check previous pieces
+                    return;
+                }
+            }
+        }
+
     }
 
     /**
@@ -157,6 +232,9 @@ public class BoardController implements Initializable {
             for (int j = 0; j < 8; j++) {
                 checkingTheRightRowForBlack(pieces[i][j], i, j);
                 checkLeftRowForBlack(pieces[i][j],i,j);
+                checkTopOfBlack(pieces[i][j],i,j);
+                // Hint -> bug in this method 
+               // checkingDownOfBlack(pieces[i][j],i,j);
             }
 
         }
