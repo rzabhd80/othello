@@ -176,7 +176,7 @@ public class BoardController implements Initializable {
                     for (int k = i; k <8 ; k++) {
                         if (foundWhitePiece(pieces[k][j])) {
                             // checking if there is a empty cell after white buttons
-                            for (int p = k -1 ; p < 8; p++) {
+                            for (int p = k +1 ; p < 8; p++) {
                                 if (pieces[p][j].getStatus().equals(Status.unselectable)) {
                                     pieces[p][j].setPieceSelectable();
                                     break;
@@ -233,8 +233,8 @@ public class BoardController implements Initializable {
                 checkingTheRightRowForBlack(pieces[i][j], i, j);
                 checkLeftRowForBlack(pieces[i][j],i,j);
                 checkTopOfBlack(pieces[i][j],i,j);
-                // Hint -> bug in this method 
-               // checkingDownOfBlack(pieces[i][j],i,j);
+                // Hint -> bug in this method
+                checkingDownOfBlack(pieces[i][j],i,j);
             }
 
         }
