@@ -23,6 +23,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class BoardController implements Initializable {
+    private final Piece[][]pieces = new Piece[8][8];
     @FXML private BorderPane pane;
     @FXML private Label score1;
 
@@ -43,9 +44,6 @@ public class BoardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initPieces();
     }
-
-
-
     /**
      * it will be called only at the beginning of the game
      * and creates the pieces for start playing the game
@@ -53,23 +51,28 @@ public class BoardController implements Initializable {
      * so all the pieces are unselectable
      */
     private void initPieces(){
+        //array has been declared in the class as public attr
         for (int i = 0; i <8 ; i++) {
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER);
             for (int j = 0; j <8 ; j++) {
+                Piece piece = null;
                 if (i==3 && j==3 || i==4 && j==4) {
-                    hBox.getChildren().add(new Piece(Status.selected, Color.green));
+                    piece = new Piece(Status.selected, Color.green);
+                    hBox.getChildren().add(piece);
                 }
                 else if (i==3 && j==4 || i==4 && j==3){
-                    hBox.getChildren().add(new Piece(Status.selected, Color.white));
+                    piece = new Piece(Status.selected, Color.white);
+                    hBox.getChildren().add(piece);
                 }
                 else {
-                    hBox.getChildren().add(new Piece(Status.unselectable));
+                    piece = new Piece(Status.unselectable);
+                    hBox.getChildren().add(piece);
                 }
+                pieces[i][j] = piece;
             }
             board.getChildren().add(hBox);
-
-
         }
     }
+
 }
