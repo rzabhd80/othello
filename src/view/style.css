@@ -28,8 +28,30 @@
 
 
 #board {
+    -fx-background-color: #a5d6a7;
     -fx-border-color: #005804;
     -fx-border-insets: 5;
     -fx-border-width: 3;
-    -fx-border-radius: 5;
+    -fx-border-radius: 10;
+}
+
+#playerIcon1 {
+    -fx-image: url("icons/soccer-player.png");
+}
+
+#playerIcon2 {
+    -fx-image: url("icons/soccer-player.png");
+}
+#topHBox {
+    -fx-background-color: green;
+    -fx-background-radius: 3;
+}
+
+#leftVbox{
+    -fx-background-color: #94af76;
+    -fx-background-radius: 10;
+}
+#rightVbox{
+    -fx-background-color: #94af76;
+    -fx-background-radius: 10;
 }
