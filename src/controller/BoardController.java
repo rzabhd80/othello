@@ -46,15 +46,11 @@ public class BoardController implements Initializable {
      * @param piece
      * @author rezaBH
      */
-
     private void checkingTheRightRowForBlack(Piece piece, int i, int j) {
-        System.out.println(i + "" + j);
-        if (piece.getPieceColor() != null) {
-            if (piece.getPieceColor().equals(Color.green)) {
+        if (piece.getPieceColor() != null && (piece.getPieceColor().equals(Color.white))){
                 //if the next piece has diff color or its null, it doesnt need
-                if (pieces[i][j + 1].getStatus().equals(Status.selected)) {
-                    if (!pieces[i][j + 1].getPieceColor().equals(piece.getPieceColor()) && pieces[i][j + 1].getStatus().
-                            equals(Status.selected)) {
+                if (pieces[i][j + 1].getPieceColor()!=null) {
+                    if (!pieces[i][j + 1].getPieceColor().equals(piece.getPieceColor()) && pieces[i][j + 1].getPieceColor()!=null) {
                         //checks all next buttons to see if any of them is white
                         for (int k = j; k < 8; k++) {
                             if (foundWhitePiece(pieces[i][k])) {
@@ -72,14 +68,11 @@ public class BoardController implements Initializable {
                         return;
                     }
                 }
-            } else {
-                return;
             }
         }
-    }
 
     private void checkingTheRightRowForWhite(Piece piece, int i, int j) {
-        if (piece.getPieceColor().equals(Color.white)) {
+        if (piece.getPieceColor()!=null&&piece.getPieceColor().equals(Color.white)) {
             //if the next or previous piece has diff color return false
             if (pieces[i][j + 1].getPieceColor() != null) {
                 if (!pieces[i][j + 1].getPieceColor().equals(piece.getPieceColor()) && pieces[i][j + 1].getPieceColor() != null) {
@@ -95,6 +88,31 @@ public class BoardController implements Initializable {
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+    private void checkLeftRowForBlack(Piece piece,int i,int j){
+        if (piece.getPieceColor() != null && (piece.getPieceColor().equals(Color.white))){
+            //if the next piece has diff color or its null, it doesnt need
+            if (j-1>0&&pieces[i][j - 1].getPieceColor()!=null) {
+                if (!pieces[i][j - 1].getPieceColor().equals(piece.getPieceColor()) && pieces[i][j - 1].getStatus().
+                        equals(Status.selected)) {
+                    //checks all next buttons to see if any of them is white
+                    for (int k = j; k > 0; k--) {
+                        if (foundWhitePiece(pieces[i][k])) {
+                            // checking if there is a empty cell after white buttons
+                            for (int p = k -1 ; p > 0; p--) {
+                                if (pieces[i][p].getStatus().equals(Status.unselectable)) {
+                                    pieces[i][p].setPieceSelectable();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    //then we need to check previous pieces
+                    return;
                 }
             }
         }
@@ -134,11 +152,11 @@ public class BoardController implements Initializable {
      * @author reza Bh
      */
     public void setSelectables() {
+        // we need to check the trun... ->
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 checkingTheRightRowForBlack(pieces[i][j], i, j);
-                //BUG HERE
-                //checkingTheRightRowForWhite(pieces[i][j], i, j);
+                checkLeftRowForBlack(pieces[i][j],i,j);
             }
 
         }
@@ -152,6 +170,7 @@ public class BoardController implements Initializable {
         playerName1.setText(player1.getName());
         playerName2.setText(player2.getName());
         initPieces();
+
         setSelectables();
 
     }
