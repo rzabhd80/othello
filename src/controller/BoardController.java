@@ -57,7 +57,7 @@ public class BoardController implements Initializable {
                     pieces[i][j] = new Piece(Status.selected, Color.green);
                     hBox.getChildren().add(pieces[i][j]);
                 } else if (i == 3 && j == 4 || i == 4 && j == 3) {
-                    pieces[i][j] = new Piece(Status.selected, Color.white);
+                    pieces[i][j] = new Piece(Status.selected, Color.black);
                     hBox.getChildren().add(pieces[i][j]);
                 } else {
                     pieces[i][j] = new Piece(Status.unselectable);
