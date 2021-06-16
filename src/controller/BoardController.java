@@ -237,6 +237,38 @@ public class BoardController implements Initializable {
     }
 
 
+    private void checkUpperOfMainDiagonalBlack(Piece piece,int i,int j) {
+        if (piece.getPieceColor() != null && (piece.getPieceColor().equals(Color.black))) {
+            boolean found = false;
+            if (i - 1 > 0 && j - 1 >0 && pieces[i - 1][j - 1].getPieceColor() != null) {
+                if (!pieces[i - 1][j - 1].getPieceColor().equals(piece.getPieceColor()) && pieces[i - 1][j - 1].getStatus().
+                        equals(Status.selected)) {
+                    for (int k = i; k > 0; k--) {
+                        for (int l = j; l >0; l--) {
+                            if (k == l) {
+                                if (foundGreenPiece(pieces[k][l])) {
+                                    for (int p = k - 1; p > 0; p--) {
+                                        for (int m = l - 1; m > 0; m--) {
+                                            if (pieces[p][m].getStatus().equals(Status.unselectable) && p == m) {
+                                                pieces[p][m].setPieceSelectable();
+                                                found = true;
+                                                break;
+                                            }
+                                        }
+                                        if (found)
+                                            break;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     /**
      * this methods are meant to check if the given piece has the color of green
      *
@@ -245,7 +277,7 @@ public class BoardController implements Initializable {
      * @author reza bh
      */
     public boolean foundGreenPiece(Piece piece) {
-        if(piece.getPieceColor()==null)
+        if (piece.getPieceColor() == null)
             return false;
         if (piece.getPieceColor().equals(Color.green))
             return true;
@@ -253,7 +285,7 @@ public class BoardController implements Initializable {
     }
 
     public boolean foundWhitePiece(Piece piece) {
-        if (piece.getPieceColor()==null)
+        if (piece.getPieceColor() == null)
             return false;
         if (piece.getPieceColor().equals(Color.black))
             return true;
@@ -283,8 +315,8 @@ public class BoardController implements Initializable {
                 checkTopOfBlack(pieces[i][j], i, j);
                 checkingDownOfBlack(pieces[i][j], i, j);
                 checkDownOfMainDiagonalBlack(pieces[i][j], i, j);
+                checkUpperOfMainDiagonalBlack(pieces[i][j],i,j);
             }
-
         }
     }
 
