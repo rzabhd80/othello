@@ -312,10 +312,6 @@ public class BoardController implements Initializable {
         playerName1.setText(player1.getName());
         playerName2.setText(player2.getName());
         initPieces();
-        pieces[4][5].setPieceSelectable();
-        pieces[4][5].setPieceGreen();
-        pieces[3][2].setPieceSelectable();
-        pieces[3][2].setPieceBlack();
         setSelectables();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
