@@ -232,8 +232,8 @@ public class BoardController implements Initializable {
     private void checkUpperOfMainDiagonalBlack(Piece piece, int i, int j) {
         if (piece.getPieceColor() != null && (piece.getPieceColor().equals(Color.black))) {
             boolean found = false;
-            if (i - 1 >=0 && j - 1 >=0 && pieces[i + 1][j + 1].getPieceColor() != null) {
-                if (!pieces[i + 1][j + 1].getPieceColor().equals(piece.getPieceColor()) && pieces[i + 1][j + 1].
+            if (i - 1 >=0 && j - 1 >=0 && pieces[i - 1][j - 1].getPieceColor() != null) {
+                if (!pieces[i - 1][j - 1].getPieceColor().equals(piece.getPieceColor()) && pieces[i - 1][j - 1].
                         getPieceColor()!=null) {
                     int k,p;
                     for ( k = i,p=j; k >=0&&p>=0 ; k--,p--) {
@@ -312,6 +312,8 @@ public class BoardController implements Initializable {
         playerName1.setText(player1.getName());
         playerName2.setText(player2.getName());
         initPieces();
+        pieces[2][3].setPieceSelectable();
+        pieces[2][3].setPieceGreen();
         setSelectables();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
