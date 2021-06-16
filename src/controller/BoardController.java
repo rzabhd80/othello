@@ -56,7 +56,7 @@ public class BoardController implements Initializable {
                         if (foundGreenPiece(pieces[i][k])) {
                             // checking if there is a empty cell after white buttons
                             for (int p = k + 1; p < 8; p++) {
-                                if (pieces[i][p].getStatus().equals(Status.unselectable)) {
+                                if (pieces[i][p].getPieceColor()==null) {
                                     pieces[i][p].setPieceSelectable();
                                     break;
                                 }
@@ -104,15 +104,15 @@ public class BoardController implements Initializable {
     private void checkLeftRowForBlack(Piece piece, int i, int j) {
         if (piece.getPieceColor() != null && (piece.getPieceColor().equals(Color.black))) {
             //if the next piece has diff color or its null, it doesnt need
-            if (j - 1 > 0 && pieces[i][j - 1].getPieceColor() != null) {
+            if (j - 1 >= 0 && pieces[i][j - 1].getPieceColor() != null) {
                 if (!pieces[i][j - 1].getPieceColor().equals(piece.getPieceColor()) && pieces[i][j - 1].getStatus().
                         equals(Status.selected)) {
                     //checks all next buttons to see if any of them is white
-                    for (int k = j; k > 0; k--) {
+                    for (int k = j; k >= 0; k--) {
                         if (foundGreenPiece(pieces[i][k])) {
                             // checking if there is a empty cell after white buttons
-                            for (int p = k - 1; p > 0; p--) {
-                                if (pieces[i][p].getStatus().equals(Status.unselectable)) {
+                            for (int p = k - 1; p >= 0; p--) {
+                                if (pieces[i][p].getPieceColor()==null) {
                                     pieces[i][p].setPieceSelectable();
                                     break;
                                 }
@@ -138,15 +138,15 @@ public class BoardController implements Initializable {
     private void checkTopOfBlack(Piece piece, int i, int j) {
         if (piece.getPieceColor() != null && (piece.getPieceColor().equals(Color.black))) {
             //if the next piece has diff color or its null, it doesnt need
-            if (i - 1 > 0 && pieces[i - 1][j].getPieceColor() != null) {
+            if (i - 1 >= 0 && pieces[i - 1][j].getPieceColor() != null) {
                 if (!pieces[i - 1][j].getPieceColor().equals(piece.getPieceColor()) && pieces[i - 1][j].getStatus().
                         equals(Status.selected)) {
                     //checks all next buttons to see if any of them is white
-                    for (int k = i; k > 0; k--) {
+                    for (int k = i; k >= 0; k--) {
                         if (foundGreenPiece(pieces[k][j])) {
                             // checking if there is a empty cell after white buttons
-                            for (int p = k - 1; p > 0; p--) {
-                                if (pieces[p][j].getStatus().equals(Status.unselectable)) {
+                            for (int p = k - 1; p >= 0; p--) {
+                                if (pieces[p][j].getPieceColor()==null) {
                                     pieces[p][j].setPieceSelectable();
                                     break;
                                 }
@@ -179,7 +179,7 @@ public class BoardController implements Initializable {
                         if (foundGreenPiece(pieces[k][j])) {
                             // checking if there is a empty cell after white buttons
                             for (int p = k + 1; p < 8; p++) {
-                                if (pieces[p][j].getStatus().equals(Status.unselectable)) {
+                                if (pieces[p][j].getPieceColor()==null) {
                                     pieces[p][j].setPieceSelectable();
                                     break;
                                 }
@@ -314,8 +314,8 @@ public class BoardController implements Initializable {
                 checkLeftRowForBlack(pieces[i][j], i, j);
                 checkTopOfBlack(pieces[i][j], i, j);
                 checkingDownOfBlack(pieces[i][j], i, j);
-                checkDownOfMainDiagonalBlack(pieces[i][j], i, j);
-                checkUpperOfMainDiagonalBlack(pieces[i][j],i,j);
+             //   checkDownOfMainDiagonalBlack(pieces[i][j], i, j);
+              //  checkUpperOfMainDiagonalBlack(pieces[i][j],i,j);
             }
         }
     }
@@ -328,11 +328,19 @@ public class BoardController implements Initializable {
         playerName1.setText(player1.getName());
         playerName2.setText(player2.getName());
         initPieces();
-//        pieces[5][5].setPieceSelectable();
-//        pieces[5][5].setPieceBlack();
-//        pieces[6][6].setPieceSelectable();
-//        pieces[6][6].setPieceGreen();
         setSelectables();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                int finalJ = j;
+                int finalI = i;
+                pieces[i][j].setOnAction(event -> {
+                    pieces[finalI][finalJ].setPieceSelectable();
+                    pieces[finalI][finalJ].setPieceGreen();
+                    setSelectables();
+                });
+            }
+        }
+
 
     }
 
