@@ -21,7 +21,7 @@ public class Piece extends Button {
         this.setPrefSize(100,100);
 
 
-        if (status == Status.selected && pieceColor==Color.white){
+        if (status == Status.selected && pieceColor==Color.black){
             this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #000000");
         }
         else if (status == Status.selected && pieceColor == Color.green){
@@ -50,10 +50,10 @@ public class Piece extends Button {
      * set the piece white
      * @author AmirMahdi
      */
-    public void setPieceWhite(){
+    public void setPieceBlack(){
         if (status == Status.selectable) {
             status = Status.selected;
-            pieceColor = Color.white;
+            pieceColor = Color.black;
             this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #000000");
             this.setOpacity(1);
         }
