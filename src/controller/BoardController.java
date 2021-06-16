@@ -207,7 +207,7 @@ public class BoardController implements Initializable {
 
     private void checkDownOfMainDiagonalBlack(Piece piece, int i, int j) {
         if (piece.getPieceColor() != null && (piece.getPieceColor().equals(Color.white))) {
-            if (i + 1 > 0 && j + 1 > 0 && pieces[i + 1][j + 1].getPieceColor() != null) {
+            if (i + 1 < pieces.length && j + 1 < pieces[i].length && pieces[i + 1][j + 1].getPieceColor() != null) {
                 if (!pieces[i + 1][j + 1].getPieceColor().equals(piece.getPieceColor()) && pieces[i + 1][j + 1].getStatus().
                         equals(Status.selected)) {
                     for (int k = i; k < 8; k++) {
