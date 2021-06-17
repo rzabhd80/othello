@@ -21,10 +21,10 @@ public class Piece extends Button {
         this.setPrefSize(100,100);
 
 
-        if (status == Status.selected && pieceColor==Color.green){
-            this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #262626");
+        if (status == Status.selected && pieceColor==Color.black){
+            this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #000000");
         }
-        else if (status == Status.selected && pieceColor == Color.black){
+        else if (status == Status.selected && pieceColor == Color.green){
             this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #006c04");
         }
     }
@@ -54,7 +54,7 @@ public class Piece extends Button {
         if (status == Status.selectable) {
             status = Status.selected;
             pieceColor = Color.black;
-            this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #262626");
+            this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #000000");
             this.setOpacity(1);
         }
     }
@@ -67,7 +67,7 @@ public class Piece extends Button {
     public void setPieceGreen(){
         if (status == Status.selectable) {
             status = Status.selected;
-            pieceColor = Color.black;
+            pieceColor = Color.green;
             this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #006c04");
             this.setOpacity(1);
         }
