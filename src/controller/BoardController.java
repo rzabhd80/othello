@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -29,6 +31,8 @@ public class BoardController implements Initializable {
     private Label playerName1;
     @FXML
     private Label playerName2;
+
+    private boolean greenTurn = true;
 
     /**
      * this global array is meant to store all the pieces of the field
@@ -531,14 +535,6 @@ public class BoardController implements Initializable {
         return false;
     }
 
-    /**
-     * flipper method is used for flipping the coins
-     *
-     * @author reza BH
-     */
-    public void flipper() {
-
-    }
 
     /**
      * setting the selectables of table
@@ -549,23 +545,97 @@ public class BoardController implements Initializable {
         // we need to check the trun... ->
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                checkingTheRightRowForBlack(pieces[i][j], i, j);
-                checkLeftRowForBlack(pieces[i][j], i, j);
-                checkTopOfBlack(pieces[i][j], i, j);
-                checkingDownOfBlack(pieces[i][j], i, j);
-                checkDownOfMainDiagonalBlack(pieces[i][j], i, j);
-                checkUpperOfMainDiagonalBlack(pieces[i][j], i, j);
-                checkDownOfSecondDiagonalBlack(pieces[i][j], i, j);
-                checkUpperOfSecondDiagonalBlack(pieces[i][j], i, j);
-                checkingTheRightRowForGreen(pieces[i][j], i, j);
-                checkingTheLeftRowForGreen(pieces[i][j], i, j);
-                checkingTopOfGreen(pieces[i][j], i, j);
-                checkingDownOfGreen(pieces[i][j], i, j);
-                checkingDownOfMainDiagonalGreen(pieces[i][j], i, j);
-                checkUpperOfMainDiagonalGreen(pieces[i][j], i, j);
-                checkDownOfSecondDiagonalGreen(pieces[i][j],i,j);
-                checkUpperOfSecondDiagonalGreen(pieces[i][j],i,j);
+
+                if (!greenTurn) {
+                    // for black
+                    checkingTheRightRowForBlack(pieces[i][j], i, j);
+                    checkLeftRowForBlack(pieces[i][j], i, j);
+                    checkTopOfBlack(pieces[i][j], i, j);
+                    checkingDownOfBlack(pieces[i][j], i, j);
+                    checkDownOfMainDiagonalBlack(pieces[i][j], i, j);
+                    checkUpperOfMainDiagonalBlack(pieces[i][j], i, j);
+                    checkDownOfSecondDiagonalBlack(pieces[i][j], i, j);
+                    checkUpperOfSecondDiagonalBlack(pieces[i][j], i, j);
+                }
+                // for green
+                if (greenTurn) {
+                    checkingTheRightRowForGreen(pieces[i][j], i, j);
+                    checkingTheLeftRowForGreen(pieces[i][j], i, j);
+                    checkingTopOfGreen(pieces[i][j], i, j);
+                    checkingDownOfGreen(pieces[i][j], i, j);
+                    checkingDownOfMainDiagonalGreen(pieces[i][j], i, j);
+                    checkUpperOfMainDiagonalGreen(pieces[i][j], i, j);
+                    checkDownOfSecondDiagonalGreen(pieces[i][j], i, j);
+                    checkUpperOfSecondDiagonalGreen(pieces[i][j], i, j);
+                }
             }
+        }
+    }
+
+    public void selectPieceForPlay(){
+        setSelectables();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                int finalI = i;
+                int finalJ = j;
+                pieces[i][j].setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        if (greenTurn){
+                            pieces[finalI][finalJ].setPieceGreen();
+                            setPieceColorAfterPlay();
+                            changeTurn();
+                            setSelectables();
+                        }else {
+                            pieces[finalI][finalJ].setPieceBlack();
+                            changeTurn();
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    public void rotatePiece(Piece piece, int i, int j){
+        if (j==7){
+            return;
+        }
+        Color newPieceColor = piece.getPieceColor();
+        if (pieces[i][j+1].getPieceColor() != null && !pieces[i][j+1].getPieceColor().equals(newPieceColor)){
+            int startRotating=j+1;
+            int endRotating =-1;
+            boolean find=false;
+            for (int k = j+1; k < 8; k++) {
+                if (pieces[i][k].getPieceColor() != null && pieces[i][k].getPieceColor().equals(newPieceColor)){
+                    endRotating=k;
+                    find = true;
+                    break;
+                }
+            }
+            if (find) {
+                for (int k = startRotating; k <= endRotating; k++) {
+                    pieces[i][k].setPieceGivenColor(newPieceColor);
+                }
+            }
+        }
+    }
+
+    public void setPieceColorAfterPlay(){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (pieces[i][j].getPieceColor() != null) {
+                    rotatePiece(pieces[i][j], i, j);
+                }
+            }
+        }
+    }
+
+    public void changeTurn(){
+        if (greenTurn){
+            greenTurn=false;
+        }
+        else{
+            greenTurn = true;
         }
     }
 
@@ -577,24 +647,8 @@ public class BoardController implements Initializable {
         playerName1.setText(player1.getName());
         playerName2.setText(player2.getName());
         initPieces();
-//        pieces[5][2].setPieceSelectable();
-//        pieces[5][2].setPieceGreen();
-//        pieces[4][5].setPieceSelectable();
-//        pieces[4][5].setPieceGreen();
-//        pieces[3][2].setPieceSelectable();
-//        pieces[3][2].setPieceBlack();
-        setSelectables();
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                int finalJ = j;
-                int finalI = i;
-                pieces[i][j].setOnAction(event -> {
-                    pieces[finalI][finalJ].setPieceSelectable();
-                    pieces[finalI][finalJ].setPieceBlack();
-                    setSelectables();
-                });
-            }
-        }
+        selectPieceForPlay();
+
     }
 
 
@@ -607,7 +661,6 @@ public class BoardController implements Initializable {
      * @author AmirMahdi
      */
     private void initPieces() {
-        board.setSpacing(2);
         for (int i = 0; i < 8; i++) {
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER);

@@ -73,6 +73,23 @@ public class Piece extends Button {
         }
     }
 
+    public void setPieceGivenColor(Color color){
+        if (color.equals(Color.black)){
+            status = Status.selected;
+            pieceColor = Color.black;
+            this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #2a2a2a");
+            this.setOpacity(1);
+        }
+
+        else if (color.equals(Color.green)){
+            status = Status.selected;
+            pieceColor = Color.green;
+            this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #006c04");
+            this.setOpacity(1);
+        }
+
+    }
+
     /**
      * set the piece selectable
      * @author AmirMahdi
