@@ -2,9 +2,9 @@ package model;
 
 
 public class Player {
-    private String name;
+    public String name;
     private Color playerColor;
-    private int score;
+    public int score;
 
     public String getName() {
         return name;

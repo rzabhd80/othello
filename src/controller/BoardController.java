@@ -1,17 +1,23 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import model.Color;
 import model.Piece;
 import model.Player;
 import model.Status;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class BoardController implements Initializable {
@@ -33,9 +39,11 @@ public class BoardController implements Initializable {
     private Label playerColor1;
     @FXML
     private Label playerColor2;
+    @FXML
+    private Button list;
     public static Player player1 = new Player();
     public static Player player2 = new Player();
-
+    public static ArrayList<Player>players = new ArrayList<>();
     /**
      * this global array is meant to store all the pieces of the field
      *
@@ -609,6 +617,17 @@ public class BoardController implements Initializable {
                 });
             }
         }
+        list.setOnAction(event -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("../view/Table.fxml"));
+            try {
+                fxmlLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.getRoot()));
+            stage.show();
+        });
     }
 
     /**

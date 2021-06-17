@@ -1,4 +1,5 @@
 package controller;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import model.Player;
 import sun.applet.Main;;
 import java.io.IOException;
 import java.net.URL;
@@ -57,22 +59,35 @@ public class SignUpController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         error.setText("");
         submitButton.setOnAction(event -> {
-            if(name1.getText().isEmpty()|| name2.getText().isEmpty()){
+            if (name1.getText().isEmpty() || name2.getText().isEmpty()) {
                 error.setText("please fill all the blanks");
                 error.setTextFill(Color.RED);
             } else {
-                player1.setName(name1.getText());
-                player2.setName(name2.getText());
-                FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("../view/board.fxml"));
-                try {
-                    fxmlLoader.load();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                boolean found1 = false, found2 = false;
+                for (Player player : BoardController.players) {
+                    if (player.name.equals(name1.getText()))
+                        found1 = true;
+                    if (player.name.equals(name2.getText()))
+                        found2 = true;
                 }
-                Stage stage = new Stage();
-                stage.setScene(new Scene(fxmlLoader.getRoot()));
-
-                stage.show();
+                if (found1 && found2) {
+                    player1.setName(name1.getText());
+                    player2.setName(name2.getText());
+                    BoardController.players.add(player1);
+                    BoardController.players.add(player2);
+                    FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("../view/board.fxml"));
+                    try {
+                        fxmlLoader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(fxmlLoader.getRoot()));
+                    stage.show();
+                } else {
+                    error.setText("this name has already been used");
+                    error.setTextFill(Color.RED);
+                }
             }
         });
     }
