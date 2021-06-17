@@ -22,7 +22,7 @@ public class Piece extends Button {
 
 
         if (status == Status.selected && pieceColor==Color.black){
-            this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #000000");
+            this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #2a2a2a");
         }
         else if (status == Status.selected && pieceColor == Color.green){
             this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #006c04");
@@ -50,11 +50,11 @@ public class Piece extends Button {
      * set the piece white
      * @author AmirMahdi
      */
-    public void setPieceWhite(){
+    public void setPieceBlack(){
         if (status == Status.selectable) {
             status = Status.selected;
             pieceColor = Color.black;
-            this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #000000");
+            this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #2a2a2a");
             this.setOpacity(1);
         }
     }
