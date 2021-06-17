@@ -29,6 +29,8 @@ public class BoardController implements Initializable {
     private Label playerName1;
     @FXML
     private Label playerName2;
+    public static Player player1 = new Player();
+    public static Player player2 = new Player();
 
     /**
      * this global array is meant to store all the pieces of the field
@@ -453,6 +455,13 @@ public class BoardController implements Initializable {
         }
     }
 
+    /**
+     * method used to check selectable pieces in the upper part of second diagonal
+     * @param piece
+     * @param i
+     * @param j
+     * @author reza BH
+     */
     private void checkUpperOfSecondDiagonalBlack(Piece piece, int i, int j) {
 
         boolean accept = true;
@@ -530,16 +539,6 @@ public class BoardController implements Initializable {
             return true;
         return false;
     }
-
-    /**
-     * flipper method is used for flipping the coins
-     *
-     * @author reza BH
-     */
-    public void flipper() {
-
-    }
-
     /**
      * setting the selectables of table
      *
@@ -571,9 +570,6 @@ public class BoardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        Player player1 = new Player("reza");
-        Player player2 = new Player("amir");
         playerName1.setText(player1.getName());
         playerName2.setText(player2.getName());
         initPieces();
@@ -597,6 +593,27 @@ public class BoardController implements Initializable {
         }
     }
 
+    /**
+     * this method checks if the game has finished
+     * if all pieces are not selectable it means game has ended
+     * in other words , if any piece is selectable , it means game has not ended yet
+     * @author reza BH
+     */
+    private boolean CheckEnd(){
+        boolean ended = true;
+        for (int i = 0; i <8 ; i++) {
+            for (int j = 0; j <8 ; j++) {
+                if (pieces[i][j].getStatus().equals(Status.selectable)) {
+                    ended = false;
+                    break;
+                }
+
+            }
+        }
+        if(ended)
+            return true;
+        return false;
+    }
 
     /**
      * it will be called only at the beginning of the game.
