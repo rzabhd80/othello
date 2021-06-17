@@ -209,17 +209,18 @@ public class BoardController implements Initializable {
                 if (!pieces[i + 1][j + 1].getPieceColor().equals(piece.getPieceColor()) && pieces[i + 1][j + 1].
                         getPieceColor() != null) {
                     int k, p;
-                    for (k = i+1, p =j+1; k < 8 && p < 8; k++, p++) {
-                        if (pieces[k][p].getPieceColor()!=null&&!foundGreenPiece(pieces[k][p])) {
+                    for (k = i + 1, p = j + 1; k < 8 && p < 8; k++, p++) {
+                        if (pieces[k][p].getPieceColor() != null && !foundGreenPiece(pieces[k][p])) {
                             found = false;
                         }
                     }
-                }
-                int l, m;
-                for (l = i, m = j; l <= 8 && m <= 8; l++, m++) {
-                    if (found&&pieces[l][m].getPieceColor() == null) {
-                        pieces[l][m].setPieceSelectable();
-                        break;
+
+                    int l, m;
+                    for (l = i, m = j; l <= 8 && m <= 8; l++, m++) {
+                        if (found && pieces[l][m].getPieceColor() == null) {
+                            pieces[l][m].setPieceSelectable();
+                            break;
+                        }
                     }
                 }
             }
@@ -235,23 +236,85 @@ public class BoardController implements Initializable {
                 if (!pieces[i - 1][j - 1].getPieceColor().equals(piece.getPieceColor()) && pieces[i - 1][j - 1].
                         getPieceColor() != null) {
                     int k, p;
-                    for (k = i-1, p = j-1; k >= 0 && p >= 0; k--, p--) {
-                        if (pieces[k][p].getPieceColor()!=null&&!foundGreenPiece(pieces[k][p])) {
+                    for (k = i - 1, p = j - 1; k >= 0 && p >= 0; k--, p--) {
+                        if (pieces[k][p].getPieceColor() != null && !foundGreenPiece(pieces[k][p])) {
                             found = false;
                         }
                     }
-                }
-                int l, m;
-                for (l = i, m = j; l >= 0 && m >= 0; l--, m--) {
-                    if (found&&pieces[l][m].getPieceColor() == null) {
-                        pieces[l][m].setPieceSelectable();
-                        break;
+
+                    int l, m;
+                    for (l = i, m = j; l >= 0 && m >= 0; l--, m--) {
+                        if (found && pieces[l][m].getPieceColor() == null) {
+                            pieces[l][m].setPieceSelectable();
+                            break;
+                        }
                     }
                 }
             }
         }
     }
 
+    /**
+     * this methods check the down part and upper part of second diagonal and see if any piece must be selectable
+     *
+     * @param piece
+     * @param i
+     * @param j
+     * @author reza Bh
+     */
+
+    private void checkDownOfSecondDiagonalBlack(Piece piece, int i, int j) {
+        boolean accept = true;
+        if (piece.getPieceColor() != null && (piece.getPieceColor().equals(Color.black))) {
+            boolean found = true;
+            if (i + 1 < 8 && j - 1 >= 0 && pieces[i + 1][j - 1].getPieceColor() != null) {
+                if (!pieces[i + 1][j - 1].getPieceColor().equals(piece.getPieceColor()) && pieces[i + 1][j - 1].
+                        getPieceColor() != null) {
+                    int k, p;
+                    for (k = i + 1, p = j - 1; k < 8 && p >= 0; k++, p--) {
+                        if (pieces[k][p].getPieceColor() != null && !foundGreenPiece(pieces[k][p])) {
+                            found = false;
+                        }
+                    }
+
+                    int l, m;
+                    for (l = i, m = j; l < 8 && m >= 0; l++, m--) {
+                        if (found && pieces[l][m].getPieceColor() == null) {
+                            pieces[l][m].setPieceSelectable();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void checkUpperOfSecondDiagonalBlack(Piece piece, int i, int j) {
+
+        boolean accept = true;
+        if (piece.getPieceColor() != null && (piece.getPieceColor().equals(Color.black))) {
+            boolean found = true;
+            if (i - 1 >= 0 && j + 1 <= 8 && pieces[i - 1][j + 1].getPieceColor() != null) {
+                if (!pieces[i - 1][j + 1].getPieceColor().equals(piece.getPieceColor()) && pieces[i - 1][j + 1].
+                        getPieceColor() != null) {
+                    int k, p;
+                    for (k = i - 1, p = j + 1; k >= 0 && p < 8; k--, p++) {
+                        if (pieces[k][p].getPieceColor() != null && !foundGreenPiece(pieces[k][p])) {
+                            found = false;
+                        }
+                    }
+
+                    int l, m;
+                    for (l = i, m = j; l >= 0 && m < 8; l--, m++) {
+                        if (found && pieces[l][m].getPieceColor() == null) {
+                            pieces[l][m].setPieceSelectable();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * this methods are meant to check if the given piece has the color of green
@@ -300,6 +363,8 @@ public class BoardController implements Initializable {
                 checkingDownOfBlack(pieces[i][j], i, j);
                 checkDownOfMainDiagonalBlack(pieces[i][j], i, j);
                 checkUpperOfMainDiagonalBlack(pieces[i][j], i, j);
+                checkDownOfSecondDiagonalBlack(pieces[i][j], i, j);
+                checkUpperOfSecondDiagonalBlack(pieces[i][j],i,j);
             }
         }
     }
@@ -312,12 +377,12 @@ public class BoardController implements Initializable {
         playerName1.setText(player1.getName());
         playerName2.setText(player2.getName());
         initPieces();
-        pieces[2][3].setPieceSelectable();
-        pieces[2][3].setPieceGreen();
-        pieces[4][5].setPieceSelectable();
-        pieces[4][5].setPieceGreen();
-        pieces[5][6].setPieceSelectable();
-        pieces[5][6].setPieceBlack();
+//        pieces[5][2].setPieceSelectable();
+//        pieces[5][2].setPieceGreen();
+//        pieces[4][5].setPieceSelectable();
+//        pieces[4][5].setPieceGreen();
+//        pieces[5][6].setPieceSelectable();
+//        pieces[5][6].setPieceBlack();
         setSelectables();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -330,8 +395,6 @@ public class BoardController implements Initializable {
                 });
             }
         }
-
-
     }
 
 
