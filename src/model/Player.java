@@ -4,6 +4,7 @@ package model;
 public class Player {
     private String name;
     private Color playerColor;
+    private int score;
 
     public String getName() {
         return name;
@@ -24,5 +25,14 @@ public class Player {
     public Player(String name) {
         this.name = name;
     }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public Player(){}
 }

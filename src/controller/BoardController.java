@@ -602,6 +602,25 @@ public class BoardController implements Initializable {
     }
 
     /**
+     *
+     *this method is used for calculating and setting players scores
+     * @author rezaBh
+     */
+    private void calculateScore(){
+        for (int i = 0; i <8 ; i++) {
+            for (int j = 0; j <8 ; j++) {
+                if(pieces[i][j].getPieceColor().equals(player1.getPlayerColor())){
+                    player1.setScore(player1.getScore()+1);
+                } else if(pieces[i][j].getPieceColor().equals(player2.getPlayerColor())){
+                    player2.setScore(player1.getScore()+1);
+                }
+            }
+        }
+        score1.setText(Integer.toString(player1.getScore()));
+        score2.setText(Integer.toString(player2.getScore()));
+    }
+
+    /**
      * this method checks if the game has finished
      * if all pieces are not selectable it means game has ended
      * in other words , if any piece is selectable , it means game has not ended yet
