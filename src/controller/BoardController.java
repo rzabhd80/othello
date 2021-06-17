@@ -29,6 +29,10 @@ public class BoardController implements Initializable {
     private Label playerName1;
     @FXML
     private Label playerName2;
+    @FXML
+    private Label playerColor1;
+    @FXML
+    private Label playerColor2;
     public static Player player1 = new Player();
     public static Player player2 = new Player();
 
@@ -572,6 +576,10 @@ public class BoardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         playerName1.setText(player1.getName());
         playerName2.setText(player2.getName());
+        player1.setPlayerColor(Color.black);
+        player2.setPlayerColor(Color.green);
+        playerColor1.setText(player1.getPlayerColor().toString());
+        playerColor2.setText(player2.getPlayerColor().toString());
         initPieces();
 //        pieces[5][2].setPieceSelectable();
 //        pieces[5][2].setPieceGreen();

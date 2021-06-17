@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BoardController">
+<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BoardController">
    <top>
       <HBox fx:id="topHBox" prefHeight="18.0" prefWidth="1036.0" BorderPane.alignment="CENTER" />
    </top>
    <left>
-      <VBox prefHeight="753.0" prefWidth="169.0"  BorderPane.alignment="CENTER">
+      <VBox prefHeight="753.0" prefWidth="169.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="leftVbox" alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="642.0" prefWidth="149.0" >
+            <VBox fx:id="leftVbox" alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="642.0" prefWidth="149.0">
                <children>
                   <ImageView fx:id="playerIcon1" fitHeight="112.0" fitWidth="98.0">
                   </ImageView>
@@ -31,6 +31,7 @@
                      </font>
                   </Label>
                   <Label fx:id="turn1" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="161.0" text="It`s Your turn" textFill="#280cdd" />
+                  <Label fx:id="playerColor1" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -66,6 +67,7 @@
                      </font>
                   </Label>
                   <Label fx:id="turn2" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="161.0" text="It`s Your turn" textFill="#280cdd" />
+                  <Label fx:id="playerColor2" />
                </children>
                <opaqueInsets>
                   <Insets />
