@@ -10,9 +10,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Color;
 import model.Piece;
+import model.Player;
 import model.Status;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class BoardController implements Initializable {
@@ -30,6 +32,9 @@ public class BoardController implements Initializable {
     private Label playerName1;
     @FXML
     private Label playerName2;
+    public static Player player1= new Player();
+    public static Player player2= new Player();
+    public static ArrayList<Player>players = new ArrayList<>();
 
     private boolean greenTurn = true;
 
@@ -54,25 +59,16 @@ public class BoardController implements Initializable {
      * author AmirMahdi
      */
     public void setSelectables() {
-        System.out.println("now i am set pieces selectable for green player");
         for (int i = 0; i <= 7; i++) {
             for (int j = 0; j <= 7; j++) {
                 if (greenTurn) {
-                    System.out.println("such a wow the " + i + " " + j + " piece is green. so i will check right of it");
                     checkingTheRightRowForGreen(pieces[i][j],i,j);
-                    System.out.println("and now left of it");
                     checkingTheLeftRowForGreen(pieces[i][j], i, j);
-                    System.out.println("and now up Column of it");
                     checkingTheUpColumnForGreen(pieces[i][j],i,j);
-                    System.out.println("and now down Column of it");
                     checkingTheDownColumnForGreen(pieces[i][j],i,j);
-                    System.out.println("and now up right diameter");
                     checkingTheUpRightDiameterForGreen(pieces[i][j],i,j);
-                    System.out.println("and now up left diameter");
                     checkingTheUpLeftDiameterForGreen(pieces[i][j],i,j);
-                    System.out.println("and now down right diameter");
                     checkingTheDownRightDiameterForGreen(pieces[i][j],i,j);
-                    System.out.println("and now down left diameter");
                     checkingTheDownLeftDiameterForGreen(pieces[i][j],i,j);
                 }else {
                     checkingTheRightRowForBlack(pieces[i][j],i,j);

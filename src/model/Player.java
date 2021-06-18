@@ -2,8 +2,8 @@ package model;
 
 
 public class Player {
-    private String name;
-    private Color playerColor;
+    public String name;
+    public Color playerColor;
 
     public String getName() {
         return name;
@@ -24,4 +24,5 @@ public class Player {
     public Player(String name) {
         this.name = name;
     }
+    public Player(){}
 }
