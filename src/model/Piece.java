@@ -87,7 +87,12 @@ public class Piece extends Button {
             this.setStyle("-fx-background-radius: 100;\n-fx-background-color: #006c04");
             this.setOpacity(1);
         }
+    }
 
+    public void setPieceUnselectable(){
+        status = Status.unselectable;
+        pieceColor = null;
+        this.setOpacity(0.2);
     }
 
     /**
