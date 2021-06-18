@@ -3,20 +3,15 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.Color;
 import model.Piece;
 import model.Player;
 import model.Status;
-
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -158,18 +153,7 @@ public class BoardController implements Initializable {
                             setSelectables();
                             calculateScore();
                         }
-                        if(!hasNotEnded()){
-                            //scoreTableController.addMatch(players);
-                            FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("../view/EndOfGame.fxml"));
-                            try {
-                                fxmlLoader.load();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            Stage stage = new Stage();
-                            stage.setScene(new Scene(fxmlLoader.getRoot()));
-                            stage.show();
-                        }
+                        isFinished();
                     }
                 });
             }
@@ -402,15 +386,19 @@ public class BoardController implements Initializable {
      *
      * @author reza bh
      */
-    private boolean hasNotEnded() {
-        boolean notYet = false;
+    private void isFinished() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (pieces[i][j].getStatus() == Status.selectable)
-                    notYet = true;
+                if (pieces[i][j].getStatus() == Status.selectable) {
+                    congratulation();
+                    break;
+                }
             }
         }
-        return notYet;
+    }
+
+    public void congratulation(){
+
     }
 
 
@@ -422,12 +410,12 @@ public class BoardController implements Initializable {
     public void changeTurn() {
         if (greenTurn) {
             greenTurn = false;
-            turn1.setText("");
-            turn2.setText("your turn");
+            turn1.setVisible(true);
+            turn2.setVisible(false);
         } else {
             greenTurn = true;
-            turn2.setText("");
-            turn1.setText("your turn");
+            turn1.setVisible(false);
+            turn2.setVisible(true);
         }
     }
 
@@ -460,7 +448,7 @@ public class BoardController implements Initializable {
      * @author AmirMahdi, reza bh
      */
     private void initPieces() {
-        turn1.setText("");
+//        turn1.setText("");
         playerName1.setText(player1.getName());
         playerName2.setText(player2.getName());
         player1.setPlayerColor(Color.black);
@@ -487,14 +475,8 @@ public class BoardController implements Initializable {
         }
     }
 
-    /**
-     * these methods are used for making the buttons selectable
-     * @param piece
-     * @param i
-     * @param j
-     *
-     * @author AmirMahdi,Reza Bh
-     */
+
+    // Functions to identify selectable pieces for green player
     private void checkingTheRightRowForGreen(Piece piece, int i, int j) {
         if (j == 7) {
             return;
@@ -559,7 +541,6 @@ public class BoardController implements Initializable {
                     if (pieces[k][j].getPieceColor() != Color.black) {
                         return;
                     }
-                    System.out.println("the piece " + k + " " + j + " is " + pieces[k][j].getPieceColor());
                 } else {
 
                     pieces[k][j].setPieceSelectable();
@@ -634,7 +615,6 @@ public class BoardController implements Initializable {
                     if (pieces[k][h].getPieceColor() != Color.black) {
                         return;
                     }
-                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
                     pieces[k][h].setPieceSelectable();
                     return;
