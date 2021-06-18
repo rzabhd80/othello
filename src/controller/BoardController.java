@@ -41,8 +41,8 @@ public class BoardController implements Initializable {
     @FXML
     private Label playerColor2;
 
-    public static Player player1 = new Player();
-    public static Player player2 = new Player();
+    public static Player player1;
+    public static Player player2;
     public static ArrayList<Player> players = new ArrayList<>();
 
     private boolean greenTurn = true;
@@ -487,28 +487,29 @@ public class BoardController implements Initializable {
         }
     }
 
-
-    // Functions to identify selectable pieces for green player
+    /**
+     * these methods are used for making the buttons selectable
+     * @param piece
+     * @param i
+     * @param j
+     *
+     * @author AmirMahdi,Reza Bh
+     */
     private void checkingTheRightRowForGreen(Piece piece, int i, int j) {
         if (j == 7) {
             return;
         }
         if (piece.getPieceColor() == Color.green && pieces[i][j + 1].getPieceColor() == Color.black) {
-            System.out.println("oh my god. next piece of it is black. so are there any white or unselected piece after it?");
             for (int k = j + 1; k < 8; k++) {
                 if (pieces[i][k].getPieceColor() != null) {
                     if (pieces[i][k].getPieceColor() != Color.black) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
-                    System.out.println("the piece " + i + " " + k + " is " + pieces[i][k].getPieceColor());
                 } else {
-                    System.out.println("the piece " + i + " " + k + " has no color. so it must be selectable. finish right for this green piece ");
                     pieces[i][k].setPieceSelectable();
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
@@ -517,21 +518,16 @@ public class BoardController implements Initializable {
             return;
         }
         if (piece.getPieceColor() == Color.green && pieces[i][j - 1].getPieceColor() == Color.black) {
-            System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = j - 1; k >= 0; k--) {
                 if (pieces[i][k].getPieceColor() != null) {
                     if (pieces[i][k].getPieceColor() != Color.black) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
-                    System.out.println("the piece " + i + " " + k + " is " + pieces[i][k].getPieceColor());
                 } else {
-                    System.out.println("the piece " + i + " " + k + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[i][k].setPieceSelectable();
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
@@ -540,21 +536,16 @@ public class BoardController implements Initializable {
             return;
         }
         if (piece.getPieceColor() == Color.green && pieces[i - 1][j].getPieceColor() == Color.black) {
-            System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i - 1; k >= 0; k--) {
                 if (pieces[k][j].getPieceColor() != null) {
                     if (pieces[k][j].getPieceColor() != Color.black) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
-                    System.out.println("the piece " + k + " " + j + " is " + pieces[k][j].getPieceColor());
                 } else {
-                    System.out.println("the piece " + k + " " + j + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][j].setPieceSelectable();
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
@@ -563,21 +554,18 @@ public class BoardController implements Initializable {
             return;
         }
         if (piece.getPieceColor() == Color.green && pieces[i + 1][j].getPieceColor() == Color.black) {
-            System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i + 1; k <= 7; k++) {
                 if (pieces[k][j].getPieceColor() != null) {
                     if (pieces[k][j].getPieceColor() != Color.black) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
                     System.out.println("the piece " + k + " " + j + " is " + pieces[k][j].getPieceColor());
                 } else {
-                    System.out.println("the piece " + k + " " + j + " has no color. so it must be selectable. finish left for this green piece ");
+
                     pieces[k][j].setPieceSelectable();
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
@@ -586,21 +574,16 @@ public class BoardController implements Initializable {
             return;
         }
         if (piece.getPieceColor() == Color.green && pieces[i - 1][j + 1].getPieceColor() == Color.black) {
-            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i - 1, h = j + 1; k >= 0 && h <= 7; k--, h++) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.black) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
-                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
-                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
@@ -609,21 +592,16 @@ public class BoardController implements Initializable {
             return;
         }
         if (piece.getPieceColor() == Color.green && pieces[i - 1][j - 1].getPieceColor() == Color.black) {
-            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i - 1, h = j - 1; k >= 0 && h >= 0; k--, h--) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.black) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
-                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
-                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
@@ -632,21 +610,17 @@ public class BoardController implements Initializable {
             return;
         }
         if (piece.getPieceColor() == Color.green && pieces[i + 1][j + 1].getPieceColor() == Color.black) {
-            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i + 1, h = j + 1; k <= 7 && h <= 7; k++, h++) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.black) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
-                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
-                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
+
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
@@ -655,21 +629,17 @@ public class BoardController implements Initializable {
             return;
         }
         if (piece.getPieceColor() == Color.green && pieces[i + 1][j - 1].getPieceColor() == Color.black) {
-            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i + 1, h = j - 1; k <= 7 && h >= 0; k++, h--) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.black) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
                     System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
-                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
@@ -679,21 +649,16 @@ public class BoardController implements Initializable {
             return;
         }
         if (piece.getPieceColor() == Color.black && pieces[i][j + 1].getPieceColor() == Color.green) {
-            System.out.println("oh my god. next piece of it is black. so are there any white or unselected piece after it?");
             for (int k = j + 1; k < 8; k++) {
                 if (pieces[i][k].getPieceColor() != null) {
                     if (pieces[i][k].getPieceColor() != Color.green) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
-                    System.out.println("the piece " + i + " " + k + " is " + pieces[i][k].getPieceColor());
                 } else {
-                    System.out.println("the piece " + i + " " + k + " has no color. so it must be selectable. finish right for this green piece ");
                     pieces[i][k].setPieceSelectable();
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
@@ -702,21 +667,16 @@ public class BoardController implements Initializable {
             return;
         }
         if (piece.getPieceColor() == Color.black && pieces[i][j - 1].getPieceColor() == Color.green) {
-            System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = j - 1; k >= 0; k--) {
                 if (pieces[i][k].getPieceColor() != null) {
                     if (pieces[i][k].getPieceColor() != Color.green) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
-                    System.out.println("the piece " + i + " " + k + " is " + pieces[i][k].getPieceColor());
                 } else {
-                    System.out.println("the piece " + i + " " + k + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[i][k].setPieceSelectable();
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
@@ -725,21 +685,16 @@ public class BoardController implements Initializable {
             return;
         }
         if (piece.getPieceColor() == Color.black && pieces[i - 1][j].getPieceColor() == Color.green) {
-            System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i - 1; k >= 0; k--) {
                 if (pieces[k][j].getPieceColor() != null) {
                     if (pieces[k][j].getPieceColor() != Color.green) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
-                    System.out.println("the piece " + k + " " + j + " is " + pieces[k][j].getPieceColor());
                 } else {
-                    System.out.println("the piece " + k + " " + j + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][j].setPieceSelectable();
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
@@ -748,21 +703,16 @@ public class BoardController implements Initializable {
             return;
         }
         if (piece.getPieceColor() == Color.black && pieces[i + 1][j].getPieceColor() == Color.green) {
-            System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i + 1; k <= 7; k++) {
                 if (pieces[k][j].getPieceColor() != null) {
                     if (pieces[k][j].getPieceColor() != Color.green) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
-                    System.out.println("the piece " + k + " " + j + " is " + pieces[k][j].getPieceColor());
                 } else {
-                    System.out.println("the piece " + k + " " + j + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][j].setPieceSelectable();
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
@@ -771,20 +721,16 @@ public class BoardController implements Initializable {
             return;
         }
         if (piece.getPieceColor() == Color.black && pieces[i - 1][j + 1].getPieceColor() == Color.green) {
-            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i - 1, h = j + 1; k >= 0 && h <= 7; k--, h++) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.green) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
                 } else {
-                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
@@ -796,7 +742,6 @@ public class BoardController implements Initializable {
             for (int k = i - 1, h = j - 1; k >= 0 && h >= 0; k--, h--) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.green) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
                 } else {
@@ -804,7 +749,6 @@ public class BoardController implements Initializable {
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
@@ -818,13 +762,11 @@ public class BoardController implements Initializable {
                     if (pieces[k][h].getPieceColor() != Color.green) {
                         return;
                     }
-                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
@@ -833,21 +775,16 @@ public class BoardController implements Initializable {
             return;
         }
         if (piece.getPieceColor() == Color.black && pieces[i + 1][j - 1].getPieceColor() == Color.green) {
-            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i + 1, h = j - 1; k <= 7 && h >= 0; k++, h--) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.green) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
-                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
-                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 

@@ -8,7 +8,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class EndOfGameController implements Initializable {
-
     @FXML
     private TextField announcer;
     @Override
