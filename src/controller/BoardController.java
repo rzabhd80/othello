@@ -42,11 +42,8 @@ public class BoardController implements Initializable {
 
     private boolean greenTurn = true;
 
-    /**
-     * this global array is meant to store all the pieces of the field
-     *
-     * @author rezaBh
-     */
+
+  //this global array is meant to store all the pieces of the field
     private final Piece[][] pieces = new Piece[8][8];
 
 
@@ -54,39 +51,6 @@ public class BoardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initPieces();
         selectPieceForPlay();
-    }
-
-
-    /**
-     * makes pieces for player selectable.
-     * player does her own move
-     * author AmirMahdi
-     */
-    public void setSelectables() {
-        for (int i = 0; i <= 7; i++) {
-            for (int j = 0; j <= 7; j++) {
-                if (greenTurn) {
-                    checkingTheRightRowForGreen(pieces[i][j], i, j);
-                    checkingTheLeftRowForGreen(pieces[i][j], i, j);
-                    checkingTheUpColumnForGreen(pieces[i][j], i, j);
-                    checkingTheDownColumnForGreen(pieces[i][j], i, j);
-                    checkingTheUpRightDiameterForGreen(pieces[i][j], i, j);
-                    checkingTheUpLeftDiameterForGreen(pieces[i][j], i, j);
-                    checkingTheDownRightDiameterForGreen(pieces[i][j], i, j);
-                    checkingTheDownLeftDiameterForGreen(pieces[i][j], i, j);
-                } else {
-                    checkingTheRightRowForBlack(pieces[i][j], i, j);
-                    checkingTheLeftRowForBlack(pieces[i][j], i, j);
-                    checkingTheUpColumnForBlack(pieces[i][j], i, j);
-                    checkingTheDownColumnForBlack(pieces[i][j], i, j);
-                    checkingTheUpRightDiameterForBlack(pieces[i][j], i, j);
-                    checkingTheUpLeftDiameterForBlack(pieces[i][j], i, j);
-                    checkingTheDownRightDiameterForBlack(pieces[i][j], i, j);
-                    checkingTheDownLeftDiameterForBlack(pieces[i][j], i, j);
-
-                }
-            }
-        }
     }
 
     /**
@@ -475,6 +439,46 @@ public class BoardController implements Initializable {
         }
     }
 
+    /**
+     * makes pieces for player selectable.
+     * player does her own move
+     * author AmirMahdi
+     */
+    public void setSelectables() {
+        System.out.println("now i am set pieces selectable for green player");
+        for (int i = 0; i <= 7; i++) {
+            for (int j = 0; j <= 7; j++) {
+                if (greenTurn) {
+                    System.out.println("such a wow the " + i + " " + j + " piece is green. so i will check right of it");
+                    checkingTheRightRowForGreen(pieces[i][j],i,j);
+                    System.out.println("and now left of it");
+                    checkingTheLeftRowForGreen(pieces[i][j], i, j);
+                    System.out.println("and now up Column of it");
+                    checkingTheUpColumnForGreen(pieces[i][j],i,j);
+                    System.out.println("and now down Column of it");
+                    checkingTheDownColumnForGreen(pieces[i][j],i,j);
+                    System.out.println("and now up right diameter");
+                    checkingTheUpRightDiameterForGreen(pieces[i][j],i,j);
+                    System.out.println("and now up left diameter");
+                    checkingTheUpLeftDiameterForGreen(pieces[i][j],i,j);
+                    System.out.println("and now down right diameter");
+                    checkingTheDownRightDiameterForGreen(pieces[i][j],i,j);
+                    System.out.println("and now down left diameter");
+                    checkingTheDownLeftDiameterForGreen(pieces[i][j],i,j);
+                }else {
+                    checkingTheRightRowForBlack(pieces[i][j],i,j);
+                    checkingTheLeftRowForBlack(pieces[i][j],i,j);
+                    checkingTheUpColumnForBlack(pieces[i][j],i,j);
+                    checkingTheDownColumnForBlack(pieces[i][j],i,j);
+                    checkingTheUpRightDiameterForBlack(pieces[i][j],i,j);
+                    checkingTheUpLeftDiameterForBlack(pieces[i][j],i,j);
+                    checkingTheDownRightDiameterForBlack(pieces[i][j],i,j);
+                    checkingTheDownLeftDiameterForBlack(pieces[i][j],i,j);
+
+                }
+            }
+        }
+    }
 
     // Functions to identify selectable pieces for green player
     private void checkingTheRightRowForGreen(Piece piece, int i, int j) {
@@ -482,71 +486,87 @@ public class BoardController implements Initializable {
             return;
         }
         if (piece.getPieceColor() == Color.green && pieces[i][j + 1].getPieceColor() == Color.black) {
+            System.out.println("oh my god. next piece of it is black. so are there any white or unselected piece after it?");
             for (int k = j + 1; k < 8; k++) {
                 if (pieces[i][k].getPieceColor() != null) {
                     if (pieces[i][k].getPieceColor() != Color.black) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + i + " " + k + " is " + pieces[i][k].getPieceColor());
                 } else {
+                    System.out.println("the piece " + i + " " + k + " has no color. so it must be selectable. finish right for this green piece ");
                     pieces[i][k].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
-
     private void checkingTheLeftRowForGreen(Piece piece, int i, int j) {
         if (j == 0) {
             return;
         }
         if (piece.getPieceColor() == Color.green && pieces[i][j - 1].getPieceColor() == Color.black) {
+            System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = j - 1; k >= 0; k--) {
                 if (pieces[i][k].getPieceColor() != null) {
                     if (pieces[i][k].getPieceColor() != Color.black) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + i + " " + k + " is " + pieces[i][k].getPieceColor());
                 } else {
+                    System.out.println("the piece " + i + " " + k + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[i][k].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
-
     private void checkingTheUpColumnForGreen(Piece piece, int i, int j) {
         if (i == 0) {
             return;
         }
-        if (piece.getPieceColor() == Color.green && pieces[i - 1][j].getPieceColor() == Color.black) {
+        if (piece.getPieceColor() == Color.green && pieces[i-1][j].getPieceColor() == Color.black) {
+            System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i - 1; k >= 0; k--) {
                 if (pieces[k][j].getPieceColor() != null) {
                     if (pieces[k][j].getPieceColor() != Color.black) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + k + " " + j + " is " + pieces[k][j].getPieceColor());
                 } else {
+                    System.out.println("the piece " + k + " " + j + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][j].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
-
     private void checkingTheDownColumnForGreen(Piece piece, int i, int j) {
         if (i == 7) {
             return;
         }
-        if (piece.getPieceColor() == Color.green && pieces[i + 1][j].getPieceColor() == Color.black) {
+        if (piece.getPieceColor() == Color.green && pieces[i+1][j].getPieceColor() == Color.black) {
+            System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i + 1; k <= 7; k++) {
                 if (pieces[k][j].getPieceColor() != null) {
                     if (pieces[k][j].getPieceColor() != Color.black) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + k + " " + j + " is " + pieces[k][j].getPieceColor());
                 } else {
-
+                    System.out.println("the piece " + k + " " + j + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][j].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
 
@@ -554,72 +574,88 @@ public class BoardController implements Initializable {
         if (i == 0 || j == 7) {
             return;
         }
-        if (piece.getPieceColor() == Color.green && pieces[i - 1][j + 1].getPieceColor() == Color.black) {
-            for (int k = i - 1, h = j + 1; k >= 0 && h <= 7; k--, h++) {
+        if (piece.getPieceColor() == Color.green && pieces[i-1][j + 1].getPieceColor() == Color.black) {
+            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
+            for (int k=i-1, h=j+1; k>=0 && h<=7; k-- , h++) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.black) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
+                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
-
     private void checkingTheUpLeftDiameterForGreen(Piece piece, int i, int j) {
         if (i == 0 || j == 0) {
             return;
         }
-        if (piece.getPieceColor() == Color.green && pieces[i - 1][j - 1].getPieceColor() == Color.black) {
-            for (int k = i - 1, h = j - 1; k >= 0 && h >= 0; k--, h--) {
+        if (piece.getPieceColor() == Color.green && pieces[i-1][j - 1].getPieceColor() == Color.black) {
+            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
+            for (int k=i-1, h=j-1; k>=0 && h>=0; k-- , h--) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.black) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
+                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
-
     private void checkingTheDownRightDiameterForGreen(Piece piece, int i, int j) {
         if (i == 7 || j == 7) {
             return;
         }
-        if (piece.getPieceColor() == Color.green && pieces[i + 1][j + 1].getPieceColor() == Color.black) {
-            for (int k = i + 1, h = j + 1; k <= 7 && h <= 7; k++, h++) {
+        if (piece.getPieceColor() == Color.green && pieces[i+1][j + 1].getPieceColor() == Color.black) {
+            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
+            for (int k=i+1, h=j+1; k<=7 && h<=7; k++ , h++) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.black) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
-
+                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
-
     private void checkingTheDownLeftDiameterForGreen(Piece piece, int i, int j) {
         if (i == 7 || j == 0) {
             return;
         }
-        if (piece.getPieceColor() == Color.green && pieces[i + 1][j - 1].getPieceColor() == Color.black) {
-            for (int k = i + 1, h = j - 1; k <= 7 && h >= 0; k++, h--) {
+        if (piece.getPieceColor() == Color.green && pieces[i+1][j - 1].getPieceColor() == Color.black) {
+            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
+            for (int k=i+1, h=j-1; k<=7 && h>=0; k++ , h--) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.black) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
+                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
 
@@ -629,70 +665,87 @@ public class BoardController implements Initializable {
             return;
         }
         if (piece.getPieceColor() == Color.black && pieces[i][j + 1].getPieceColor() == Color.green) {
+            System.out.println("oh my god. next piece of it is black. so are there any white or unselected piece after it?");
             for (int k = j + 1; k < 8; k++) {
                 if (pieces[i][k].getPieceColor() != null) {
                     if (pieces[i][k].getPieceColor() != Color.green) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + i + " " + k + " is " + pieces[i][k].getPieceColor());
                 } else {
+                    System.out.println("the piece " + i + " " + k + " has no color. so it must be selectable. finish right for this green piece ");
                     pieces[i][k].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
-
     private void checkingTheLeftRowForBlack(Piece piece, int i, int j) {
         if (j == 0) {
             return;
         }
         if (piece.getPieceColor() == Color.black && pieces[i][j - 1].getPieceColor() == Color.green) {
+            System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = j - 1; k >= 0; k--) {
                 if (pieces[i][k].getPieceColor() != null) {
                     if (pieces[i][k].getPieceColor() != Color.green) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + i + " " + k + " is " + pieces[i][k].getPieceColor());
                 } else {
+                    System.out.println("the piece " + i + " " + k + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[i][k].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
-
     private void checkingTheUpColumnForBlack(Piece piece, int i, int j) {
         if (i == 0) {
             return;
         }
-        if (piece.getPieceColor() == Color.black && pieces[i - 1][j].getPieceColor() == Color.green) {
+        if (piece.getPieceColor() == Color.black && pieces[i-1][j].getPieceColor() == Color.green) {
+            System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i - 1; k >= 0; k--) {
                 if (pieces[k][j].getPieceColor() != null) {
                     if (pieces[k][j].getPieceColor() != Color.green) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + k + " " + j + " is " + pieces[k][j].getPieceColor());
                 } else {
+                    System.out.println("the piece " + k + " " + j + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][j].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
-
     private void checkingTheDownColumnForBlack(Piece piece, int i, int j) {
         if (i == 7) {
             return;
         }
-        if (piece.getPieceColor() == Color.black && pieces[i + 1][j].getPieceColor() == Color.green) {
+        if (piece.getPieceColor() == Color.black && pieces[i+1][j].getPieceColor() == Color.green) {
+            System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i + 1; k <= 7; k++) {
                 if (pieces[k][j].getPieceColor() != null) {
                     if (pieces[k][j].getPieceColor() != Color.green) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + k + " " + j + " is " + pieces[k][j].getPieceColor());
                 } else {
+                    System.out.println("the piece " + k + " " + j + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][j].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
 
@@ -700,71 +753,88 @@ public class BoardController implements Initializable {
         if (i == 0 || j == 7) {
             return;
         }
-        if (piece.getPieceColor() == Color.black && pieces[i - 1][j + 1].getPieceColor() == Color.green) {
-            for (int k = i - 1, h = j + 1; k >= 0 && h <= 7; k--, h++) {
+        if (piece.getPieceColor() == Color.black && pieces[i-1][j + 1].getPieceColor() == Color.green) {
+            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
+            for (int k=i-1, h=j+1; k>=0 && h<=7; k-- , h++) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.green) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
+                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
-
     private void checkingTheUpLeftDiameterForBlack(Piece piece, int i, int j) {
         if (i == 0 || j == 0) {
             return;
         }
-        if (piece.getPieceColor() == Color.black && pieces[i - 1][j - 1].getPieceColor() == Color.green) {
-            for (int k = i - 1, h = j - 1; k >= 0 && h >= 0; k--, h--) {
+        if (piece.getPieceColor() == Color.black && pieces[i-1][j - 1].getPieceColor() == Color.green) {
+            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
+            for (int k=i-1, h=j-1; k>=0 && h>=0; k-- , h--) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.green) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
+                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
-
     private void checkingTheDownRightDiameterForBlack(Piece piece, int i, int j) {
         if (i == 7 || j == 7) {
             return;
         }
-        if (piece.getPieceColor() == Color.black && pieces[i + 1][j + 1].getPieceColor() == Color.green) {
-            for (int k = i + 1, h = j + 1; k <= 7 && h <= 7; k++, h++) {
+        if (piece.getPieceColor() == Color.black && pieces[i+1][j + 1].getPieceColor() == Color.green) {
+            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
+            for (int k=i+1, h=j+1; k<=7 && h<=7; k++ , h++) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.green) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
+                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
-
     private void checkingTheDownLeftDiameterForBlack(Piece piece, int i, int j) {
         if (i == 7 || j == 0) {
             return;
         }
-        if (piece.getPieceColor() == Color.black && pieces[i + 1][j - 1].getPieceColor() == Color.green) {
-            for (int k = i + 1, h = j - 1; k <= 7 && h >= 0; k++, h--) {
+        if (piece.getPieceColor() == Color.black && pieces[i+1][j - 1].getPieceColor() == Color.green) {
+            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
+            for (int k=i+1, h=j-1; k<=7 && h>=0; k++ , h--) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.green) {
+                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
+                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
+                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
             }
+            System.out.println("nothing");
         }
     }
 
