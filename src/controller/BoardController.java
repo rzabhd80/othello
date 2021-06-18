@@ -456,7 +456,7 @@ public class BoardController implements Initializable {
     }
 
 
-    
+
     private void checkingTheUpColumnForGreen(Piece piece, int i, int j) {
         if (i == 0) {
             return;
