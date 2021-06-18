@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -40,6 +41,10 @@ public class BoardController implements Initializable {
     private Label playerColor1;
     @FXML
     private Label playerColor2;
+    @FXML
+    private Button scoreTable;
+    @FXML
+    private Button ref;
 
     public static Player player1;
     public static Player player2;
@@ -59,6 +64,7 @@ public class BoardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initPieces();
         selectPieceForPlay();
+        refresh();
     }
 
 
@@ -422,12 +428,12 @@ public class BoardController implements Initializable {
     public void changeTurn() {
         if (greenTurn) {
             greenTurn = false;
-            turn1.setText("");
-            turn2.setText("your turn");
-        } else {
-            greenTurn = true;
             turn2.setText("");
             turn1.setText("your turn");
+        } else {
+            greenTurn = true;
+            turn1.setText("");
+            turn2.setText("your turn");
         }
     }
 
@@ -786,5 +792,15 @@ public class BoardController implements Initializable {
                 }
             }
         }
+    }
+    private void refresh(){
+        ref.setOnAction(event -> {
+            for(int i=0;i<8;i++){
+                for(int j=0;j<8;j++){
+                    pieces[i][j].setStatus(Status.unselectable);
+                    pieces[i][j].setPieceColor(null);
+                }
+            }
+        });
     }
 }
