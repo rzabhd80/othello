@@ -18,7 +18,7 @@ public class scoreTableController implements Initializable {
     private AnchorPane pane;
 
     @FXML
-    private TableView<Player> table;
+    private static TableView<Player> table;
 
     @FXML
     private TableColumn<Player, String> player1;
@@ -29,7 +29,7 @@ public class scoreTableController implements Initializable {
     @FXML
     private Button button;
 
-    public void addMatch(ArrayList<Player> players){
+    public static void addMatch(ArrayList<Player> players){
         /**
          * when method is called , all the players saved in players arraylist , will be sorted and inserted in table
          *

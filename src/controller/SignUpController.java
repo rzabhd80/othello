@@ -78,6 +78,7 @@ public class SignUpController implements Initializable {
                         found2 = true;
                 }
                 if (!found1 && !found2) {
+
                     player1.setName(name1.getText());
                     player2.setName(name2.getText());
                     BoardController.players.add(player1);

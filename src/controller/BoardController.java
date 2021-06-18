@@ -3,16 +3,20 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import model.Color;
 import model.Piece;
 import model.Player;
 import model.Status;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -32,9 +36,14 @@ public class BoardController implements Initializable {
     private Label playerName1;
     @FXML
     private Label playerName2;
-    public static Player player1= new Player();
-    public static Player player2= new Player();
-    public static ArrayList<Player>players = new ArrayList<>();
+    @FXML
+    private Label playerColor1;
+    @FXML
+    private Label playerColor2;
+
+    public static Player player1 = new Player();
+    public static Player player2 = new Player();
+    public static ArrayList<Player> players = new ArrayList<>();
 
     private boolean greenTurn = true;
 
@@ -62,23 +71,23 @@ public class BoardController implements Initializable {
         for (int i = 0; i <= 7; i++) {
             for (int j = 0; j <= 7; j++) {
                 if (greenTurn) {
-                    checkingTheRightRowForGreen(pieces[i][j],i,j);
+                    checkingTheRightRowForGreen(pieces[i][j], i, j);
                     checkingTheLeftRowForGreen(pieces[i][j], i, j);
-                    checkingTheUpColumnForGreen(pieces[i][j],i,j);
-                    checkingTheDownColumnForGreen(pieces[i][j],i,j);
-                    checkingTheUpRightDiameterForGreen(pieces[i][j],i,j);
-                    checkingTheUpLeftDiameterForGreen(pieces[i][j],i,j);
-                    checkingTheDownRightDiameterForGreen(pieces[i][j],i,j);
-                    checkingTheDownLeftDiameterForGreen(pieces[i][j],i,j);
-                }else {
-                    checkingTheRightRowForBlack(pieces[i][j],i,j);
-                    checkingTheLeftRowForBlack(pieces[i][j],i,j);
-                    checkingTheUpColumnForBlack(pieces[i][j],i,j);
-                    checkingTheDownColumnForBlack(pieces[i][j],i,j);
-                    checkingTheUpRightDiameterForBlack(pieces[i][j],i,j);
-                    checkingTheUpLeftDiameterForBlack(pieces[i][j],i,j);
-                    checkingTheDownRightDiameterForBlack(pieces[i][j],i,j);
-                    checkingTheDownLeftDiameterForBlack(pieces[i][j],i,j);
+                    checkingTheUpColumnForGreen(pieces[i][j], i, j);
+                    checkingTheDownColumnForGreen(pieces[i][j], i, j);
+                    checkingTheUpRightDiameterForGreen(pieces[i][j], i, j);
+                    checkingTheUpLeftDiameterForGreen(pieces[i][j], i, j);
+                    checkingTheDownRightDiameterForGreen(pieces[i][j], i, j);
+                    checkingTheDownLeftDiameterForGreen(pieces[i][j], i, j);
+                } else {
+                    checkingTheRightRowForBlack(pieces[i][j], i, j);
+                    checkingTheLeftRowForBlack(pieces[i][j], i, j);
+                    checkingTheUpColumnForBlack(pieces[i][j], i, j);
+                    checkingTheDownColumnForBlack(pieces[i][j], i, j);
+                    checkingTheUpRightDiameterForBlack(pieces[i][j], i, j);
+                    checkingTheUpLeftDiameterForBlack(pieces[i][j], i, j);
+                    checkingTheDownRightDiameterForBlack(pieces[i][j], i, j);
+                    checkingTheDownLeftDiameterForBlack(pieces[i][j], i, j);
 
                 }
             }
@@ -86,11 +95,32 @@ public class BoardController implements Initializable {
     }
 
     /**
-     * When the player has taken her turn,
+     * this method is used for incrementing the score of given player
+     *
+     * @author rezaBh
+     */
+    private void calculateScore() {
+        player1.setScore(0);
+        player2.setScore(0);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (pieces[i][j].getPieceColor() != null && pieces[i][j].getPieceColor().equals(Color.green))
+                    player2.score++;
+                if (pieces[i][j].getPieceColor() != null && pieces[i][j].getPieceColor().equals(Color.black))
+                    player1.score++;
+            }
+        }
+        score1.setText(Integer.toString(player1.getScore()));
+        score2.setText(Integer.toString(player2.getScore()));
+    }
+
+    /**
+     * When the player has taken their turn,
      * the continuation of the game will be performed by calling the functions in this method
+     *
      * @author AmirMahdi
      */
-    public void selectPieceForPlay(){
+    public void selectPieceForPlay() {
         setSelectables();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -99,32 +129,46 @@ public class BoardController implements Initializable {
                 pieces[i][j].setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        if (greenTurn && pieces[finalI][finalJ].getStatus().equals(Status.selectable)){
+                        if (greenTurn && pieces[finalI][finalJ].getStatus().equals(Status.selectable)) {
                             pieces[finalI][finalJ].setPieceGreen();
                             rotatePiecesInRightRow(pieces[finalI][finalJ], finalI, finalJ);
                             rotatePiecesInLeftRow(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInDownColumn(pieces[finalI][finalJ],finalI,finalJ);
-                            rotatePiecesInUpColumn(pieces[finalI][finalJ],finalI,finalJ);
-                            rotatePiecesInUpMainDiameter(pieces[finalI][finalJ],finalI,finalJ);
-                            rotatePiecesInDownMainDiameter(pieces[finalI][finalJ],finalI,finalJ);
-                            rotatePiecesInDownSubDiameter(pieces[finalI][finalJ],finalI,finalJ);
-                            rotatePiecesInUpSubDiameter(pieces[finalI][finalJ],finalI,finalJ);
+                            rotatePiecesInDownColumn(pieces[finalI][finalJ], finalI, finalJ);
+                            rotatePiecesInUpColumn(pieces[finalI][finalJ], finalI, finalJ);
+                            rotatePiecesInUpMainDiameter(pieces[finalI][finalJ], finalI, finalJ);
+                            rotatePiecesInDownMainDiameter(pieces[finalI][finalJ], finalI, finalJ);
+                            rotatePiecesInDownSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
+                            rotatePiecesInUpSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
                             changeTurn();
                             clearSelectable();
                             setSelectables();
-                        }else if (!greenTurn && pieces[finalI][finalJ].getStatus().equals(Status.selectable)){
+                            calculateScore();
+                        } else if (!greenTurn && pieces[finalI][finalJ].getStatus().equals(Status.selectable)) {
                             pieces[finalI][finalJ].setPieceBlack();
                             rotatePiecesInRightRow(pieces[finalI][finalJ], finalI, finalJ);
                             rotatePiecesInLeftRow(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInDownColumn(pieces[finalI][finalJ],finalI,finalJ);
-                            rotatePiecesInUpColumn(pieces[finalI][finalJ],finalI,finalJ);
-                            rotatePiecesInUpMainDiameter(pieces[finalI][finalJ],finalI,finalJ);
-                            rotatePiecesInDownMainDiameter(pieces[finalI][finalJ],finalI,finalJ);
-                            rotatePiecesInDownSubDiameter(pieces[finalI][finalJ],finalI,finalJ);
-                            rotatePiecesInUpSubDiameter(pieces[finalI][finalJ],finalI,finalJ);
+                            rotatePiecesInDownColumn(pieces[finalI][finalJ], finalI, finalJ);
+                            rotatePiecesInUpColumn(pieces[finalI][finalJ], finalI, finalJ);
+                            rotatePiecesInUpMainDiameter(pieces[finalI][finalJ], finalI, finalJ);
+                            rotatePiecesInDownMainDiameter(pieces[finalI][finalJ], finalI, finalJ);
+                            rotatePiecesInDownSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
+                            rotatePiecesInUpSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
                             changeTurn();
                             clearSelectable();
                             setSelectables();
+                            calculateScore();
+                        }
+                        if(!hasNotEnded()){
+                            //scoreTableController.addMatch(players);
+                            FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("../view/EndOfGame.fxml"));
+                            try {
+                                fxmlLoader.load();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Stage stage = new Stage();
+                            stage.setScene(new Scene(fxmlLoader.getRoot()));
+                            stage.show();
                         }
                     }
                 });
@@ -132,21 +176,21 @@ public class BoardController implements Initializable {
         }
     }
 
-    public void rotatePiecesInRightRow(Piece piece, int i, int j){
-        if (j==7){
+    public void rotatePiecesInRightRow(Piece piece, int i, int j) {
+        if (j == 7) {
             return;
         }
         Color newPieceColor = piece.getPieceColor();
-        if (pieces[i][j+1].getPieceColor() != null && !pieces[i][j+1].getPieceColor().equals(newPieceColor)){
-            int startRotating=j+1;
-            int endRotating =-1;
-            boolean find=false;
-            for (int k = j+1; k <= 7; k++) {
-                if (pieces[i][k].getPieceColor() != null && pieces[i][k].getPieceColor().equals(newPieceColor)){
-                    endRotating=k-1;
+        if (pieces[i][j + 1].getPieceColor() != null && !pieces[i][j + 1].getPieceColor().equals(newPieceColor)) {
+            int startRotating = j + 1;
+            int endRotating = -1;
+            boolean find = false;
+            for (int k = j + 1; k <= 7; k++) {
+                if (pieces[i][k].getPieceColor() != null && pieces[i][k].getPieceColor().equals(newPieceColor)) {
+                    endRotating = k - 1;
                     find = true;
                     break;
-                }else if (pieces[i][k].getPieceColor() == null){
+                } else if (pieces[i][k].getPieceColor() == null) {
                     return;
                 }
             }
@@ -157,21 +201,22 @@ public class BoardController implements Initializable {
             }
         }
     }
-    public void rotatePiecesInLeftRow(Piece piece, int i, int j){
-        if (j==0){
+
+    public void rotatePiecesInLeftRow(Piece piece, int i, int j) {
+        if (j == 0) {
             return;
         }
         Color newPieceColor = piece.getPieceColor();
-        if (pieces[i][j-1].getPieceColor() != null && !pieces[i][j-1].getPieceColor().equals(newPieceColor)){
-            int startRotating=j-1;
-            int endRotating =-1;
-            boolean find=false;
-            for (int k = j-1; k >= 0; k--) {
-                if (pieces[i][k].getPieceColor() != null && pieces[i][k].getPieceColor().equals(newPieceColor)){
-                    endRotating=k+1;
+        if (pieces[i][j - 1].getPieceColor() != null && !pieces[i][j - 1].getPieceColor().equals(newPieceColor)) {
+            int startRotating = j - 1;
+            int endRotating = -1;
+            boolean find = false;
+            for (int k = j - 1; k >= 0; k--) {
+                if (pieces[i][k].getPieceColor() != null && pieces[i][k].getPieceColor().equals(newPieceColor)) {
+                    endRotating = k + 1;
                     find = true;
                     break;
-                }else if (pieces[i][k].getPieceColor() == null){
+                } else if (pieces[i][k].getPieceColor() == null) {
                     return;
                 }
             }
@@ -182,21 +227,22 @@ public class BoardController implements Initializable {
             }
         }
     }
-    public void rotatePiecesInDownColumn(Piece piece, int i, int j){
-        if (i==7){
+
+    public void rotatePiecesInDownColumn(Piece piece, int i, int j) {
+        if (i == 7) {
             return;
         }
         Color newPieceColor = piece.getPieceColor();
-        if (pieces[i+1][j].getPieceColor() != null && !pieces[i+1][j].getPieceColor().equals(newPieceColor)){
-            int startRotating = i+1;
-            int endRotating =-1;
+        if (pieces[i + 1][j].getPieceColor() != null && !pieces[i + 1][j].getPieceColor().equals(newPieceColor)) {
+            int startRotating = i + 1;
+            int endRotating = -1;
             boolean find = false;
-            for (int k = i+1; k <=7; k++) {
-                if (pieces[k][j].getPieceColor() != null && pieces[k][j].getPieceColor().equals(newPieceColor)){
-                    endRotating=k-1;
+            for (int k = i + 1; k <= 7; k++) {
+                if (pieces[k][j].getPieceColor() != null && pieces[k][j].getPieceColor().equals(newPieceColor)) {
+                    endRotating = k - 1;
                     find = true;
                     break;
-                }else if (pieces[k][j].getPieceColor() == null){
+                } else if (pieces[k][j].getPieceColor() == null) {
                     return;
                 }
             }
@@ -207,21 +253,22 @@ public class BoardController implements Initializable {
             }
         }
     }
-    public void rotatePiecesInUpColumn(Piece piece, int i, int j){
-        if (i==0){
+
+    public void rotatePiecesInUpColumn(Piece piece, int i, int j) {
+        if (i == 0) {
             return;
         }
         Color newPieceColor = piece.getPieceColor();
-        if (pieces[i-1][j].getPieceColor() != null && !pieces[i-1][j].getPieceColor().equals(newPieceColor)){
-            int startRotating = i-1;
-            int endRotating =-1;
+        if (pieces[i - 1][j].getPieceColor() != null && !pieces[i - 1][j].getPieceColor().equals(newPieceColor)) {
+            int startRotating = i - 1;
+            int endRotating = -1;
             boolean find = false;
-            for (int k = i-1; k>=0; k--) {
-                if (pieces[k][j].getPieceColor() != null && pieces[k][j].getPieceColor().equals(newPieceColor)){
-                    endRotating=k+1;
+            for (int k = i - 1; k >= 0; k--) {
+                if (pieces[k][j].getPieceColor() != null && pieces[k][j].getPieceColor().equals(newPieceColor)) {
+                    endRotating = k + 1;
                     find = true;
                     break;
-                }else if (pieces[k][j].getPieceColor() == null){
+                } else if (pieces[k][j].getPieceColor() == null) {
                     return;
                 }
             }
@@ -232,143 +279,170 @@ public class BoardController implements Initializable {
             }
         }
     }
-    public void rotatePiecesInDownMainDiameter(Piece piece, int i, int j){
-        if (i==7 || j==7){
+
+    public void rotatePiecesInDownMainDiameter(Piece piece, int i, int j) {
+        if (i == 7 || j == 7) {
             return;
         }
         Color newPieceColor = piece.getPieceColor();
-        if (pieces[i+1][j+1].getPieceColor() != null && !pieces[i+1][j+1].getPieceColor().equals(newPieceColor)){
-            int startRotatingRow = i+1;
-            int startRotatingColumn = j+1;
-            int endRotatingRow =-1;
-            int endRotatingColimn =-1;
+        if (pieces[i + 1][j + 1].getPieceColor() != null && !pieces[i + 1][j + 1].getPieceColor().equals(newPieceColor)) {
+            int startRotatingRow = i + 1;
+            int startRotatingColumn = j + 1;
+            int endRotatingRow = -1;
+            int endRotatingColimn = -1;
             boolean find = false;
-            for (int k = i+1, p=j+1; k <=7 && p<=7; k++ , p++) {
-                if (pieces[k][p].getPieceColor() != null && pieces[k][p].getPieceColor().equals(newPieceColor)){
-                    endRotatingRow=k-1;
-                    endRotatingColimn=p-1;
+            for (int k = i + 1, p = j + 1; k <= 7 && p <= 7; k++, p++) {
+                if (pieces[k][p].getPieceColor() != null && pieces[k][p].getPieceColor().equals(newPieceColor)) {
+                    endRotatingRow = k - 1;
+                    endRotatingColimn = p - 1;
                     find = true;
                     break;
-                }else if (pieces[k][p].getPieceColor() == null){
+                } else if (pieces[k][p].getPieceColor() == null) {
                     return;
                 }
             }
             if (find) {
-                for (int k = startRotatingRow , p = startRotatingColumn; k <= endRotatingRow && p<= endRotatingColimn; k++ , p++) {
+                for (int k = startRotatingRow, p = startRotatingColumn; k <= endRotatingRow && p <= endRotatingColimn; k++, p++) {
                     pieces[k][p].setPieceGivenColor(newPieceColor);
                 }
             }
         }
     }
-    public void rotatePiecesInUpMainDiameter(Piece piece, int i, int j){
-        if (i==0 || j==0){
+
+    public void rotatePiecesInUpMainDiameter(Piece piece, int i, int j) {
+        if (i == 0 || j == 0) {
             return;
         }
         Color newPieceColor = piece.getPieceColor();
-        if (pieces[i-1][j-1].getPieceColor() != null && !pieces[i-1][j-1].getPieceColor().equals(newPieceColor)){
-            int startRotatingRow = i-1;
-            int startRotatingColumn = j-1;
-            int endRotatingRow =-1;
-            int endRotatingColimn =-1;
+        if (pieces[i - 1][j - 1].getPieceColor() != null && !pieces[i - 1][j - 1].getPieceColor().equals(newPieceColor)) {
+            int startRotatingRow = i - 1;
+            int startRotatingColumn = j - 1;
+            int endRotatingRow = -1;
+            int endRotatingColimn = -1;
             boolean find = false;
-            for (int k = i-1, p=j-1; k >=0 && p>=0; k-- , p--) {
-                if (pieces[k][p].getPieceColor() != null && pieces[k][p].getPieceColor().equals(newPieceColor)){
-                    endRotatingRow=k+1;
-                    endRotatingColimn=p+1;
+            for (int k = i - 1, p = j - 1; k >= 0 && p >= 0; k--, p--) {
+                if (pieces[k][p].getPieceColor() != null && pieces[k][p].getPieceColor().equals(newPieceColor)) {
+                    endRotatingRow = k + 1;
+                    endRotatingColimn = p + 1;
                     find = true;
                     break;
-                }else if (pieces[k][p].getPieceColor() == null){
+                } else if (pieces[k][p].getPieceColor() == null) {
                     return;
                 }
             }
             if (find) {
-                for (int k = startRotatingRow , p = startRotatingColumn; k >= endRotatingRow && p>= endRotatingColimn; k-- , p--) {
+                for (int k = startRotatingRow, p = startRotatingColumn; k >= endRotatingRow && p >= endRotatingColimn; k--, p--) {
                     pieces[k][p].setPieceGivenColor(newPieceColor);
                 }
             }
         }
     }
-    public void rotatePiecesInDownSubDiameter(Piece piece, int i, int j){
-        if (i==7 || j==0){
+
+    public void rotatePiecesInDownSubDiameter(Piece piece, int i, int j) {
+        if (i == 7 || j == 0) {
             return;
         }
         Color newPieceColor = piece.getPieceColor();
-        if (pieces[i+1][j-1].getPieceColor() != null && !pieces[i+1][j-1].getPieceColor().equals(newPieceColor)){
-            int startRotatingRow = i+1;
-            int startRotatingColumn = j-1;
-            int endRotatingRow =-1;
-            int endRotatingColumn =-1;
+        if (pieces[i + 1][j - 1].getPieceColor() != null && !pieces[i + 1][j - 1].getPieceColor().equals(newPieceColor)) {
+            int startRotatingRow = i + 1;
+            int startRotatingColumn = j - 1;
+            int endRotatingRow = -1;
+            int endRotatingColumn = -1;
             boolean find = false;
-            for (int k = i+1, p=j-1; k <= 7 && p >= 0; k++ , p--) {
-                if (pieces[k][p].getPieceColor() != null && pieces[k][p].getPieceColor().equals(newPieceColor)){
-                    endRotatingRow=k-1;
-                    endRotatingColumn=p+1;
+            for (int k = i + 1, p = j - 1; k <= 7 && p >= 0; k++, p--) {
+                if (pieces[k][p].getPieceColor() != null && pieces[k][p].getPieceColor().equals(newPieceColor)) {
+                    endRotatingRow = k - 1;
+                    endRotatingColumn = p + 1;
                     find = true;
                     break;
-                }else if (pieces[k][p].getPieceColor() == null){
+                } else if (pieces[k][p].getPieceColor() == null) {
                     return;
                 }
             }
             if (find) {
-                for (int k = startRotatingRow , p = startRotatingColumn; k <= endRotatingRow && p>= endRotatingColumn; k++ , p--) {
+                for (int k = startRotatingRow, p = startRotatingColumn; k <= endRotatingRow && p >= endRotatingColumn; k++, p--) {
                     pieces[k][p].setPieceGivenColor(newPieceColor);
                 }
             }
         }
     }
-    public void rotatePiecesInUpSubDiameter(Piece piece, int i, int j){
-        if (i==0 || j==7){
+
+    public void rotatePiecesInUpSubDiameter(Piece piece, int i, int j) {
+        if (i == 0 || j == 7) {
             return;
         }
         Color newPieceColor = piece.getPieceColor();
-        if (pieces[i-1][j+1].getPieceColor() != null && !pieces[i-1][j+1].getPieceColor().equals(newPieceColor)){
-            int startRotatingRow = i-1;
-            int startRotatingColumn = j+1;
-            int endRotatingRow =-1;
-            int endRotatingColumn =-1;
+        if (pieces[i - 1][j + 1].getPieceColor() != null && !pieces[i - 1][j + 1].getPieceColor().equals(newPieceColor)) {
+            int startRotatingRow = i - 1;
+            int startRotatingColumn = j + 1;
+            int endRotatingRow = -1;
+            int endRotatingColumn = -1;
             boolean find = false;
-            for (int k = i-1, p=j+1; k >= 0 && p <= 7; k-- , p++) {
-                if (pieces[k][p].getPieceColor() != null && pieces[k][p].getPieceColor().equals(newPieceColor)){
-                    endRotatingRow=k+1;
-                    endRotatingColumn=p-1;
+            for (int k = i - 1, p = j + 1; k >= 0 && p <= 7; k--, p++) {
+                if (pieces[k][p].getPieceColor() != null && pieces[k][p].getPieceColor().equals(newPieceColor)) {
+                    endRotatingRow = k + 1;
+                    endRotatingColumn = p - 1;
                     find = true;
                     break;
-                }else if (pieces[k][p].getPieceColor() == null){
+                } else if (pieces[k][p].getPieceColor() == null) {
                     return;
                 }
             }
             if (find) {
-                for (int k = startRotatingRow , p = startRotatingColumn; k >= endRotatingRow && p <= endRotatingColumn; k-- , p++) {
+                for (int k = startRotatingRow, p = startRotatingColumn; k >= endRotatingRow && p <= endRotatingColumn; k--, p++) {
                     pieces[k][p].setPieceGivenColor(newPieceColor);
                 }
             }
         }
+    }
+
+    /**
+     * this method is used for checking the entire table and announcing the end of the game
+     * if there was no selectable piece left, it means that game has finished
+     *
+     * @author reza bh
+     */
+    private boolean hasNotEnded() {
+        boolean notYet = false;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (pieces[i][j].getStatus() == Status.selectable)
+                    notYet = true;
+            }
+        }
+        return notYet;
     }
 
 
     /**
      * After each move, each player takes turns
-     * @author AmirMahdi
+     *
+     * @author AmirMahdi, reza bh
      */
-    public void changeTurn(){
-        if (greenTurn){
-            greenTurn=false;
-        }
-        else{
+    public void changeTurn() {
+        if (greenTurn) {
+            greenTurn = false;
+            turn1.setText("");
+            turn2.setText("your turn");
+        } else {
             greenTurn = true;
+            turn2.setText("");
+            turn1.setText("your turn");
         }
     }
+
 
     /**
      * After selecting each of the selectable pieces,
      * it is the opponent's turn.
      * For this reason, the pieces that can be selected for the previous player must be removed
+     *
      * @author AmirMahdi
      */
-    public void clearSelectable(){
+    public void clearSelectable() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (pieces[i][j].getPieceColor() == null){
+                if (pieces[i][j].getPieceColor() == null) {
                     pieces[i][j].setPieceUnselectable();
                 }
             }
@@ -381,10 +455,18 @@ public class BoardController implements Initializable {
      * and creates the pieces for start playing the game.
      * only 4 pieces is selected. 2 green and 2 white at the center of board.
      * so the other pieces are unselectable
+     * setting players names and colors is done in this method
      *
-     * @author AmirMahdi
+     * @author AmirMahdi, reza bh
      */
     private void initPieces() {
+        turn1.setText("");
+        playerName1.setText(player1.getName());
+        playerName2.setText(player2.getName());
+        player1.setPlayerColor(Color.black);
+        player2.setPlayerColor(Color.green);
+        playerColor1.setText(player1.getPlayerColor().toString());
+        playerColor2.setText(player2.getPlayerColor().toString());
         for (int i = 0; i < 8; i++) {
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER);
@@ -404,6 +486,7 @@ public class BoardController implements Initializable {
             board.getChildren().add(hBox);
         }
     }
+
 
     // Functions to identify selectable pieces for green player
     private void checkingTheRightRowForGreen(Piece piece, int i, int j) {
@@ -428,6 +511,7 @@ public class BoardController implements Initializable {
             System.out.println("nothing");
         }
     }
+
     private void checkingTheLeftRowForGreen(Piece piece, int i, int j) {
         if (j == 0) {
             return;
@@ -450,11 +534,12 @@ public class BoardController implements Initializable {
             System.out.println("nothing");
         }
     }
+
     private void checkingTheUpColumnForGreen(Piece piece, int i, int j) {
         if (i == 0) {
             return;
         }
-        if (piece.getPieceColor() == Color.green && pieces[i-1][j].getPieceColor() == Color.black) {
+        if (piece.getPieceColor() == Color.green && pieces[i - 1][j].getPieceColor() == Color.black) {
             System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i - 1; k >= 0; k--) {
                 if (pieces[k][j].getPieceColor() != null) {
@@ -472,11 +557,12 @@ public class BoardController implements Initializable {
             System.out.println("nothing");
         }
     }
+
     private void checkingTheDownColumnForGreen(Piece piece, int i, int j) {
         if (i == 7) {
             return;
         }
-        if (piece.getPieceColor() == Color.green && pieces[i+1][j].getPieceColor() == Color.black) {
+        if (piece.getPieceColor() == Color.green && pieces[i + 1][j].getPieceColor() == Color.black) {
             System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i + 1; k <= 7; k++) {
                 if (pieces[k][j].getPieceColor() != null) {
@@ -499,9 +585,9 @@ public class BoardController implements Initializable {
         if (i == 0 || j == 7) {
             return;
         }
-        if (piece.getPieceColor() == Color.green && pieces[i-1][j + 1].getPieceColor() == Color.black) {
+        if (piece.getPieceColor() == Color.green && pieces[i - 1][j + 1].getPieceColor() == Color.black) {
             System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
-            for (int k=i-1, h=j+1; k>=0 && h<=7; k-- , h++) {
+            for (int k = i - 1, h = j + 1; k >= 0 && h <= 7; k--, h++) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.black) {
                         System.out.println("unfortunately there is no unselected piece");
@@ -517,13 +603,14 @@ public class BoardController implements Initializable {
             System.out.println("nothing");
         }
     }
+
     private void checkingTheUpLeftDiameterForGreen(Piece piece, int i, int j) {
         if (i == 0 || j == 0) {
             return;
         }
-        if (piece.getPieceColor() == Color.green && pieces[i-1][j - 1].getPieceColor() == Color.black) {
+        if (piece.getPieceColor() == Color.green && pieces[i - 1][j - 1].getPieceColor() == Color.black) {
             System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
-            for (int k=i-1, h=j-1; k>=0 && h>=0; k-- , h--) {
+            for (int k = i - 1, h = j - 1; k >= 0 && h >= 0; k--, h--) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.black) {
                         System.out.println("unfortunately there is no unselected piece");
@@ -539,13 +626,14 @@ public class BoardController implements Initializable {
             System.out.println("nothing");
         }
     }
+
     private void checkingTheDownRightDiameterForGreen(Piece piece, int i, int j) {
         if (i == 7 || j == 7) {
             return;
         }
-        if (piece.getPieceColor() == Color.green && pieces[i+1][j + 1].getPieceColor() == Color.black) {
+        if (piece.getPieceColor() == Color.green && pieces[i + 1][j + 1].getPieceColor() == Color.black) {
             System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
-            for (int k=i+1, h=j+1; k<=7 && h<=7; k++ , h++) {
+            for (int k = i + 1, h = j + 1; k <= 7 && h <= 7; k++, h++) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.black) {
                         System.out.println("unfortunately there is no unselected piece");
@@ -561,13 +649,14 @@ public class BoardController implements Initializable {
             System.out.println("nothing");
         }
     }
+
     private void checkingTheDownLeftDiameterForGreen(Piece piece, int i, int j) {
         if (i == 7 || j == 0) {
             return;
         }
-        if (piece.getPieceColor() == Color.green && pieces[i+1][j - 1].getPieceColor() == Color.black) {
+        if (piece.getPieceColor() == Color.green && pieces[i + 1][j - 1].getPieceColor() == Color.black) {
             System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
-            for (int k=i+1, h=j-1; k<=7 && h>=0; k++ , h--) {
+            for (int k = i + 1, h = j - 1; k <= 7 && h >= 0; k++, h--) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.black) {
                         System.out.println("unfortunately there is no unselected piece");
@@ -607,6 +696,7 @@ public class BoardController implements Initializable {
             System.out.println("nothing");
         }
     }
+
     private void checkingTheLeftRowForBlack(Piece piece, int i, int j) {
         if (j == 0) {
             return;
@@ -629,11 +719,12 @@ public class BoardController implements Initializable {
             System.out.println("nothing");
         }
     }
+
     private void checkingTheUpColumnForBlack(Piece piece, int i, int j) {
         if (i == 0) {
             return;
         }
-        if (piece.getPieceColor() == Color.black && pieces[i-1][j].getPieceColor() == Color.green) {
+        if (piece.getPieceColor() == Color.black && pieces[i - 1][j].getPieceColor() == Color.green) {
             System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i - 1; k >= 0; k--) {
                 if (pieces[k][j].getPieceColor() != null) {
@@ -651,11 +742,12 @@ public class BoardController implements Initializable {
             System.out.println("nothing");
         }
     }
+
     private void checkingTheDownColumnForBlack(Piece piece, int i, int j) {
         if (i == 7) {
             return;
         }
-        if (piece.getPieceColor() == Color.black && pieces[i+1][j].getPieceColor() == Color.green) {
+        if (piece.getPieceColor() == Color.black && pieces[i + 1][j].getPieceColor() == Color.green) {
             System.out.println("oh my god. previous piece of it is white. so are there any white or unselected piece after it?");
             for (int k = i + 1; k <= 7; k++) {
                 if (pieces[k][j].getPieceColor() != null) {
@@ -678,15 +770,14 @@ public class BoardController implements Initializable {
         if (i == 0 || j == 7) {
             return;
         }
-        if (piece.getPieceColor() == Color.black && pieces[i-1][j + 1].getPieceColor() == Color.green) {
+        if (piece.getPieceColor() == Color.black && pieces[i - 1][j + 1].getPieceColor() == Color.green) {
             System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
-            for (int k=i-1, h=j+1; k>=0 && h<=7; k-- , h++) {
+            for (int k = i - 1, h = j + 1; k >= 0 && h <= 7; k--, h++) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.green) {
                         System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
-                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
                     System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
@@ -696,21 +787,19 @@ public class BoardController implements Initializable {
             System.out.println("nothing");
         }
     }
+
     private void checkingTheUpLeftDiameterForBlack(Piece piece, int i, int j) {
         if (i == 0 || j == 0) {
             return;
         }
-        if (piece.getPieceColor() == Color.black && pieces[i-1][j - 1].getPieceColor() == Color.green) {
-            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
-            for (int k=i-1, h=j-1; k>=0 && h>=0; k-- , h--) {
+        if (piece.getPieceColor() == Color.black && pieces[i - 1][j - 1].getPieceColor() == Color.green) {
+            for (int k = i - 1, h = j - 1; k >= 0 && h >= 0; k--, h--) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.green) {
                         System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
-                    System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
-                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
@@ -718,21 +807,19 @@ public class BoardController implements Initializable {
             System.out.println("nothing");
         }
     }
+
     private void checkingTheDownRightDiameterForBlack(Piece piece, int i, int j) {
         if (i == 7 || j == 7) {
             return;
         }
-        if (piece.getPieceColor() == Color.black && pieces[i+1][j + 1].getPieceColor() == Color.green) {
-            System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
-            for (int k=i+1, h=j+1; k<=7 && h<=7; k++ , h++) {
+        if (piece.getPieceColor() == Color.black && pieces[i + 1][j + 1].getPieceColor() == Color.green) {
+            for (int k = i + 1, h = j + 1; k <= 7 && h <= 7; k++, h++) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.green) {
-                        System.out.println("unfortunately there is no unselected piece");
                         return;
                     }
                     System.out.println("the piece " + k + " " + h + " is " + pieces[k][h].getPieceColor());
                 } else {
-                    System.out.println("the piece " + k + " " + h + " has no color. so it must be selectable. finish left for this green piece ");
                     pieces[k][h].setPieceSelectable();
                     return;
                 }
@@ -740,13 +827,14 @@ public class BoardController implements Initializable {
             System.out.println("nothing");
         }
     }
+
     private void checkingTheDownLeftDiameterForBlack(Piece piece, int i, int j) {
         if (i == 7 || j == 0) {
             return;
         }
-        if (piece.getPieceColor() == Color.black && pieces[i+1][j - 1].getPieceColor() == Color.green) {
+        if (piece.getPieceColor() == Color.black && pieces[i + 1][j - 1].getPieceColor() == Color.green) {
             System.out.println("oh my god. up right diameter piece of it is white. so are there any white or unselected piece after it?");
-            for (int k=i+1, h=j-1; k<=7 && h>=0; k++ , h--) {
+            for (int k = i + 1, h = j - 1; k <= 7 && h >= 0; k++, h--) {
                 if (pieces[k][h].getPieceColor() != null) {
                     if (pieces[k][h].getPieceColor() != Color.green) {
                         System.out.println("unfortunately there is no unselected piece");
