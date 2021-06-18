@@ -29,6 +29,6 @@
         </VBox>
     </children>
     <stylesheets>
-        <URL value="@secStyle.css" />
+        <URL value="@SecStyle.css" />
     </stylesheets>
 </AnchorPane>

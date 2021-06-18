@@ -17,7 +17,7 @@
             <Font name="Algerian" size="44.0" />
          </font>
       </Text>
-      <Text fx:id="announcer" layoutX="245.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+      <Text fx:id="text" layoutX="245.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
          <font>
             <Font name="Algerian" size="46.0" />
          </font>

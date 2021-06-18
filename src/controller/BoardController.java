@@ -787,6 +787,4 @@ public class BoardController implements Initializable {
             }
         }
     }
-
-
 }
