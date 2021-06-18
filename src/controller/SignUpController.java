@@ -19,6 +19,12 @@ import static controller.BoardController.player1;
 import static controller.BoardController.player2;
 
 public class SignUpController implements Initializable {
+    /**
+     * once the app starts running , the first thing popping up will be sign up stage and players have to set
+     * their name , repetitive names are not allowed
+     *
+     * @author rezaBh
+     */
     @FXML
     private TextField name1;
 
@@ -31,6 +37,8 @@ public class SignUpController implements Initializable {
     @FXML
     private Label error;
 
+
+    public static Stage thisStage;
     public TextField getName1() {
         return name1;
     }
@@ -61,12 +69,6 @@ public class SignUpController implements Initializable {
         player2 = new Player();
         error.setText("");
         submitButton.setOnAction(event -> {
-            /**
-             * once the app starts running , the first thing popping up will be sign up stage and players have to set
-             * their name , repetitive names are not allowed
-             *
-             * @author rezaBh
-             */
             if (name1.getText().isEmpty() || name2.getText().isEmpty()) {
                 error.setText("please fill all the blanks");
                 error.setTextFill(Color.RED);
@@ -93,6 +95,7 @@ public class SignUpController implements Initializable {
                     Stage stage = new Stage();
                     stage.setScene(new Scene(fxmlLoader.getRoot()));
                     stage.show();
+                    thisStage.close();
                 } else {
                     error.setText("this name has already been used");
                     error.setTextFill(Color.RED);

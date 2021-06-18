@@ -29,6 +29,6 @@
         </VBox>
     </children>
     <stylesheets>
-        <URL value="@SecStyle.css" />
+        <URL value="@SignUpStyle.css" />
     </stylesheets>
 </AnchorPane>

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BoardController">
+<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BoardController">
    <top>
       <HBox fx:id="topHBox" prefHeight="18.0" prefWidth="1036.0" BorderPane.alignment="CENTER" />
    </top>
@@ -33,7 +33,7 @@
                      </font>
                   </Label>
                   <Label fx:id="playerColor1" text="Label" />
-                  <Label fx:id="turn1" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="161.0" text="It`s Your turn" textFill="#280cdd" />
+                  <Label fx:id="turn1" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="161.0" text="It`s Your turn" textFill="#280cdd" visible="false" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -49,7 +49,7 @@
                <graphic>
                   <ImageView fitHeight="37.0" fitWidth="43.0">
                      <image>
-                        <Image url="@icons/—Pngtree—educational%20file%20data%20table_5458991.png" />
+                        <Image url="@icons/—Pngtree—educational file data table_5458991.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -94,7 +94,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="37.0">
                      <image>
-                        <Image url="@icons/—Pngtree—vector%20refresh%20icon_4184190.png" />
+                        <Image url="@icons/—Pngtree—vector refresh icon_4184190.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -113,6 +113,6 @@
       </VBox>
    </center>
    <stylesheets>
-      <URL value="@style.css" />
+      <URL value="@BoardStyle.css" />
    </stylesheets>
 </BorderPane>

@@ -1,3 +1,4 @@
+import controller.SignUpController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,5 +17,6 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(fxmlLoader.getRoot()));
         primaryStage.show();
+        SignUpController.thisStage = primaryStage;
     }
 }

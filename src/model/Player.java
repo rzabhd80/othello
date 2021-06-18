@@ -22,10 +22,6 @@ public class Player {
         this.playerColor = playerColor;
     }
 
-    public Player(String name) {
-        this.name = name;
-    }
-
     public int getScore() {
         return score;
     }
@@ -33,6 +29,4 @@ public class Player {
     public void setScore(int score) {
         this.score = score;
     }
-
-    public Player(){}
 }
