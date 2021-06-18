@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,11 +12,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import model.Color;
 import model.Piece;
 import model.Player;
 import model.Status;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -60,6 +63,7 @@ public class BoardController implements Initializable {
         initPieces();
         selectPieceForPlay();
         refresh();
+        setScoreTable();
     }
 
     /**
@@ -80,6 +84,22 @@ public class BoardController implements Initializable {
         }
         score1.setText(Integer.toString(player1.getScore()));
         score2.setText(Integer.toString(player2.getScore()));
+    }
+
+    private void setScoreTable(){
+        scoreTable.setOnAction(event -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("../view/scoreTable.fxml"));
+            try {
+                fxmlLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.getRoot()));
+            stage.setResizable(false);
+            stage.show();
+
+        });
     }
 
     /**
@@ -360,13 +380,17 @@ public class BoardController implements Initializable {
      * @author reza bh
      */
     private void isFinished() {
+        boolean ended = true;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (pieces[i][j].getStatus() == Status.selectable) {
-                    congratulation();
+                    ended = false;
                     break;
                 }
             }
+        }
+        if(ended){
+            congratulation();
         }
     }
 
