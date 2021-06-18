@@ -454,6 +454,9 @@ public class BoardController implements Initializable {
             System.out.println("nothing");
         }
     }
+
+
+    
     private void checkingTheUpColumnForGreen(Piece piece, int i, int j) {
         if (i == 0) {
             return;
