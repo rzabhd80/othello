@@ -76,10 +76,14 @@ public class SignUpController implements Initializable {
             } else {
                 boolean found1 = false, found2 = false;
                 for (Player player : BoardController.players) {
-                    if (player.name.equals(name1.getText()))
+                    if (player.name.equals(name1.getText())) {
                         found1 = true;
-                    if (player.name.equals(name2.getText()))
+                        player1 = player;
+                    }
+                    if (player.name.equals(name2.getText())) {
+                        player2 = player;
                         found2 = true;
+                    }
                 }
                 if (!found1 && !found2) {
 
@@ -87,20 +91,20 @@ public class SignUpController implements Initializable {
                     player2.setName(name2.getText());
                     BoardController.players.add(player1);
                     BoardController.players.add(player2);
-                    FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("../view/board.fxml"));
-                    try {
-                        fxmlLoader.load();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(fxmlLoader.getRoot()));
-                    stage.show();
-                    thisStage.close();
                 } else {
-                    error.setText("this name has already been used");
-                    error.setTextFill(Color.RED);
+                    player1.setName(name1.getText());
+                    player2.setName(name2.getText());
                 }
+                FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("../view/board.fxml"));
+                try {
+                    fxmlLoader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Stage stage = new Stage();
+                stage.setScene(new Scene(fxmlLoader.getRoot()));
+                stage.show();
+                thisStage.close();
             }
         });
     }

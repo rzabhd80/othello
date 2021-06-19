@@ -20,7 +20,7 @@
                 </Label>
                 <TextField fx:id="name1" alignment="CENTER" promptText="name of player 1" style="-fx-background-radius: 50;" />
                 <TextField fx:id="name2" alignment="CENTER" promptText="name of player2" style="-fx-background-radius: 50;" />
-                <Label fx:id="error" prefHeight="9.0" prefWidth="35.0" />
+                <Label fx:id="error" prefHeight="21.0" prefWidth="371.0" />
                 <Button fx:id="submitButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="371.0" style="-fx-background-radius: 200; -fx-background-color: lightblue; -fx-border-color: lightblue; -fx-border-radius: 10;" styleClass="\@secStyle.css" text="submit" textFill="#5b1010">
                     <VBox.margin>
                         <Insets bottom="20.0" />
