@@ -60,7 +60,6 @@ public class BoardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Player.readFile();
         initPieces();
         selectPieceForPlay();
         refresh();

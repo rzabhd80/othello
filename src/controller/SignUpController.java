@@ -65,6 +65,7 @@ public class SignUpController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Player.readFile();
         player1 = new Player();
         player2 = new Player();
         error.setText("");
