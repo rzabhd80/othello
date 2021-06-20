@@ -1,13 +1,11 @@
 package controller;
 
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -115,38 +113,34 @@ public class BoardController implements Initializable {
             for (int j = 0; j < 8; j++) {
                 int finalI = i;
                 int finalJ = j;
-                pieces[i][j].setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        if (greenTurn && pieces[finalI][finalJ].getStatus().equals(Status.selectable)) {
-                            pieces[finalI][finalJ].setPieceGreen();
-                            rotatePiecesInRightRow(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInLeftRow(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInDownColumn(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInUpColumn(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInUpMainDiameter(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInDownMainDiameter(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInDownSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInUpSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
-                            clearSelectable();
-                            changeTurn();
-//                            setSelectables();
-                            calculateScore();
-                        } else if (!greenTurn && pieces[finalI][finalJ].getStatus().equals(Status.selectable)) {
-                            pieces[finalI][finalJ].setPieceBlack();
-                            rotatePiecesInRightRow(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInLeftRow(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInDownColumn(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInUpColumn(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInUpMainDiameter(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInDownMainDiameter(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInDownSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
-                            rotatePiecesInUpSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
-                            clearSelectable();
-                            changeTurn();
-//                            setSelectables();
-                            calculateScore();
-                        }
+                pieces[i][j].setOnAction(event -> {
+                    if (greenTurn && pieces[finalI][finalJ].getStatus().equals(Status.selectable)) {
+                        pieces[finalI][finalJ].setPieceGreen();
+                        rotatePiecesInRightRow(pieces[finalI][finalJ], finalI, finalJ);
+                        rotatePiecesInLeftRow(pieces[finalI][finalJ], finalI, finalJ);
+                        rotatePiecesInDownColumn(pieces[finalI][finalJ], finalI, finalJ);
+                        rotatePiecesInUpColumn(pieces[finalI][finalJ], finalI, finalJ);
+                        rotatePiecesInUpMainDiameter(pieces[finalI][finalJ], finalI, finalJ);
+                        rotatePiecesInDownMainDiameter(pieces[finalI][finalJ], finalI, finalJ);
+                        rotatePiecesInDownSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
+                        rotatePiecesInUpSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
+                        clearSelectable();
+                        changeTurn();
+                        calculateScore();
+                        isFinished();
+                    } else if (!greenTurn && pieces[finalI][finalJ].getStatus().equals(Status.selectable)) {
+                        pieces[finalI][finalJ].setPieceBlack();
+                        rotatePiecesInRightRow(pieces[finalI][finalJ], finalI, finalJ);
+                        rotatePiecesInLeftRow(pieces[finalI][finalJ], finalI, finalJ);
+                        rotatePiecesInDownColumn(pieces[finalI][finalJ], finalI, finalJ);
+                        rotatePiecesInUpColumn(pieces[finalI][finalJ], finalI, finalJ);
+                        rotatePiecesInUpMainDiameter(pieces[finalI][finalJ], finalI, finalJ);
+                        rotatePiecesInDownMainDiameter(pieces[finalI][finalJ], finalI, finalJ);
+                        rotatePiecesInDownSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
+                        rotatePiecesInUpSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
+                        clearSelectable();
+                        changeTurn();
+                        calculateScore();
                         isFinished();
                     }
                 });
@@ -267,12 +261,12 @@ public class BoardController implements Initializable {
             int startRotatingRow = i + 1;
             int startRotatingColumn = j + 1;
             int endRotatingRow = -1;
-            int endRotatingColimn = -1;
+            int endRotatingColumn = -1;
             boolean find = false;
             for (int k = i + 1, p = j + 1; k <= 7 && p <= 7; k++, p++) {
                 if (pieces[k][p].getPieceColor() != null && pieces[k][p].getPieceColor().equals(newPieceColor)) {
                     endRotatingRow = k - 1;
-                    endRotatingColimn = p - 1;
+                    endRotatingColumn = p - 1;
                     find = true;
                     break;
                 } else if (pieces[k][p].getPieceColor() == null) {
@@ -280,7 +274,7 @@ public class BoardController implements Initializable {
                 }
             }
             if (find) {
-                for (int k = startRotatingRow, p = startRotatingColumn; k <= endRotatingRow && p <= endRotatingColimn; k++, p++) {
+                for (int k = startRotatingRow, p = startRotatingColumn; k <= endRotatingRow && p <= endRotatingColumn; k++, p++) {
                     pieces[k][p].setPieceGivenColor(newPieceColor);
                 }
             }
@@ -296,12 +290,12 @@ public class BoardController implements Initializable {
             int startRotatingRow = i - 1;
             int startRotatingColumn = j - 1;
             int endRotatingRow = -1;
-            int endRotatingColimn = -1;
+            int endRotatingColumn = -1;
             boolean find = false;
             for (int k = i - 1, p = j - 1; k >= 0 && p >= 0; k--, p--) {
                 if (pieces[k][p].getPieceColor() != null && pieces[k][p].getPieceColor().equals(newPieceColor)) {
                     endRotatingRow = k + 1;
-                    endRotatingColimn = p + 1;
+                    endRotatingColumn = p + 1;
                     find = true;
                     break;
                 } else if (pieces[k][p].getPieceColor() == null) {
@@ -309,7 +303,7 @@ public class BoardController implements Initializable {
                 }
             }
             if (find) {
-                for (int k = startRotatingRow, p = startRotatingColumn; k >= endRotatingRow && p >= endRotatingColimn; k--, p--) {
+                for (int k = startRotatingRow, p = startRotatingColumn; k >= endRotatingRow && p >= endRotatingColumn; k--, p--) {
                     pieces[k][p].setPieceGivenColor(newPieceColor);
                 }
             }
@@ -381,28 +375,44 @@ public class BoardController implements Initializable {
      * @author reza bh
      */
     private void isFinished() {
-        if (!onePieceIsSelectable()){
+        if (noPieceIsSelectable()){
             changeTurn();
-            if (!onePieceIsSelectable()){
+            if (noPieceIsSelectable()){
                 Player.insertInFile();
                 congratulation();
             }
         }
     }
 
-    public boolean onePieceIsSelectable(){
+    public boolean noPieceIsSelectable(){
         for(int i=0;i<8;i++){
             for(int j=0;j<8;j++){
                 if(pieces[i][j].getStatus().equals(Status.selectable)){
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 
     public void congratulation() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Final result");
+        String text;
+        if (player1.score==player2.score){
+            text = "Draw";
+        }
+        else if (player1.score>player2.score){
+            text = player1.getName() + " Is winner";
+        }
+        else {
+            text = player2.getName() + " Is winner";
+        }
 
+        alert.setHeaderText(null);
+        alert.setContentText(text);
+
+        alert.showAndWait();
     }
 
 
@@ -461,7 +471,6 @@ public class BoardController implements Initializable {
             boardStage.show();
 
         });
-
     }
 
 
@@ -542,16 +551,9 @@ public class BoardController implements Initializable {
         }
     }
 
-    // Functions to identify selectable pieces for green player
 
-    /**
-     * methods are used for checking all the possible selectable pieces
-     *
-     * @param piece
-     * @param i
-     * @param j
-     * @author AmirMahdi, reza Bh
-     */
+
+    // Functions to identify selectable pieces for green player
     private void checkingTheRightRowForGreen(Piece piece, int i, int j) {
         if (j == 7) {
             return;
