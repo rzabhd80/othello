@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Player implements Serializable {
+    public static ArrayList<Player> players = new ArrayList<>();
     public String name;
     public Color playerColor;
     public int score;
@@ -45,14 +46,14 @@ public class Player implements Serializable {
         ObjectOutputStream objectOutputStream = null;
         FileOutputStream fileOutputStream = null;
         try {
-            fileOutputStream = new FileOutputStream("src/controller/players",true);
+            fileOutputStream = new FileOutputStream("src/model/players");
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
             assert objectOutputStream != null;
-            objectOutputStream.writeObject(BoardController.players);
+            objectOutputStream.writeObject(players);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -70,10 +71,10 @@ public class Player implements Serializable {
 
     public static void readFile() {
         try {
-           FileInputStream fileInputStream = new FileInputStream("src/controller/players");
+           FileInputStream fileInputStream = new FileInputStream("src/model/players");
            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             try {
-                BoardController.players = (ArrayList<Player>) objectInputStream.readObject();
+                players = (ArrayList<Player>) objectInputStream.readObject();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }

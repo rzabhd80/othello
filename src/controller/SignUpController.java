@@ -74,7 +74,7 @@ public class SignUpController implements Initializable {
                 error.setTextFill(Color.RED);
             } else {
                 boolean found1 = false, found2 = false;
-                for (Player player : BoardController.players) {
+                for (Player player : Player.players) {
                     if (player.name.equals(name1.getText())) {
                         found1 = true;
                         player1 = player;
@@ -88,8 +88,8 @@ public class SignUpController implements Initializable {
 
                     player1.setName(name1.getText());
                     player2.setName(name2.getText());
-                    BoardController.players.add(player1);
-                    BoardController.players.add(player2);
+                    Player.players.add(player1);
+                    Player.players.add(player2);
                 } else {
                     player1.setName(name1.getText());
                     player2.setName(name2.getText());

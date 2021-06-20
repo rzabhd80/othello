@@ -43,7 +43,7 @@ public class scoreTableController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         player1.setCellValueFactory(new PropertyValueFactory<>("name"));
         score1.setCellValueFactory(new PropertyValueFactory<>("score"));
-        addMatch(BoardController.players);
+        addMatch(Player.players);
         score1.setSortType(TableColumn.SortType.DESCENDING);
         table.getSortOrder().add(score1);
         table.sort();
