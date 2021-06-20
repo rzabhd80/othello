@@ -442,8 +442,8 @@ public class BoardController implements Initializable {
      * @author rezaBh
      */
     private void refresh() {
-        boardStage.close();
         ref.setOnAction(event -> {
+            boardStage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("../view/board.fxml"));
             try {
                 fxmlLoader.load();
