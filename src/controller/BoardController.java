@@ -50,6 +50,7 @@ public class BoardController implements Initializable {
     public static Player player1;
     public static Player player2;
     public static ArrayList<Player> players = new ArrayList<>();
+    public static Stage boardStage;
 
     private boolean greenTurn = true;
 
@@ -441,7 +442,17 @@ public class BoardController implements Initializable {
      * @author rezaBh
      */
     private void refresh() {
+        boardStage.close();
         ref.setOnAction(event -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("../view/board.fxml"));
+            try {
+                fxmlLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            boardStage = new Stage();
+            boardStage.setScene(new Scene(fxmlLoader.getRoot()));
+            boardStage.show();
 
         });
 

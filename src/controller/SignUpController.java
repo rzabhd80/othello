@@ -15,8 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static controller.BoardController.player1;
-import static controller.BoardController.player2;
+import static controller.BoardController.*;
 
 public class SignUpController implements Initializable {
     /**
@@ -101,9 +100,9 @@ public class SignUpController implements Initializable {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Stage stage = new Stage();
-                stage.setScene(new Scene(fxmlLoader.getRoot()));
-                stage.show();
+                BoardController.boardStage = new Stage();
+                boardStage.setScene(new Scene(fxmlLoader.getRoot()));
+                boardStage.show();
                 thisStage.close();
             }
         });
