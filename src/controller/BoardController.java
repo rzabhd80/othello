@@ -128,9 +128,9 @@ public class BoardController implements Initializable {
                             rotatePiecesInDownMainDiameter(pieces[finalI][finalJ], finalI, finalJ);
                             rotatePiecesInDownSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
                             rotatePiecesInUpSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
-                            changeTurn();
                             clearSelectable();
-                            setSelectables();
+                            changeTurn();
+//                            setSelectables();
                             calculateScore();
                         } else if (!greenTurn && pieces[finalI][finalJ].getStatus().equals(Status.selectable)) {
                             pieces[finalI][finalJ].setPieceBlack();
@@ -142,9 +142,9 @@ public class BoardController implements Initializable {
                             rotatePiecesInDownMainDiameter(pieces[finalI][finalJ], finalI, finalJ);
                             rotatePiecesInDownSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
                             rotatePiecesInUpSubDiameter(pieces[finalI][finalJ], finalI, finalJ);
-                            changeTurn();
                             clearSelectable();
-                            setSelectables();
+                            changeTurn();
+//                            setSelectables();
                             calculateScore();
                         }
                         isFinished();
@@ -381,19 +381,24 @@ public class BoardController implements Initializable {
      * @author reza bh
      */
     private void isFinished() {
-        boolean ended = true;
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (pieces[i][j].getStatus() == Status.selectable) {
-                    ended = false;
-                    break;
+        if (!onePieceIsSelectable()){
+            changeTurn();
+            if (!onePieceIsSelectable()){
+                Player.insertInFile();
+                congratulation();
+            }
+        }
+    }
+
+    public boolean onePieceIsSelectable(){
+        for(int i=0;i<8;i++){
+            for(int j=0;j<8;j++){
+                if(pieces[i][j].getStatus().equals(Status.selectable)){
+                    return true;
                 }
             }
         }
-        if(ended){
-            Player.insertInFile();
-            congratulation();
-        }
+        return false;
     }
 
     public void congratulation() {
@@ -416,6 +421,7 @@ public class BoardController implements Initializable {
             turn1.setVisible(false);
             turn2.setVisible(true);
         }
+        setSelectables();
     }
 
 
