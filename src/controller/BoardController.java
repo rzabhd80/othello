@@ -825,7 +825,6 @@ public class BoardController implements Initializable {
                     return;
                 }
             }
-            System.out.println("nothing");
         }
     }
 
