@@ -412,7 +412,6 @@ public class BoardController implements Initializable {
         alert.showAndWait();
     }
 
-
     /**
      * After each move, each player takes turns
      *
@@ -469,7 +468,6 @@ public class BoardController implements Initializable {
 
         });
     }
-
 
     /**
      * it will be called only at the beginning of the game.
@@ -538,7 +536,6 @@ public class BoardController implements Initializable {
             }
         }
     }
-
 
     // Functions to identify selectable pieces for green player
     private void checkingTheRightRowForGreen(Piece piece, int i, int j) {
