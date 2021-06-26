@@ -400,7 +400,7 @@ public class BoardController implements Initializable {
         String text;
         if (score1.getText().equals(score2.getText())) {
             text = "Draw";
-        } else if (player1.score > player2.score) {
+        } else if (Integer.parseInt(score1.getText()) > Integer.parseInt(score2.getText())) {
             text = player1.getName() + " Is winner";
         } else {
             text = player2.getName() + " Is winner";
