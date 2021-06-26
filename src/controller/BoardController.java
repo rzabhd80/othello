@@ -398,7 +398,7 @@ public class BoardController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Final result");
         String text;
-        if (player1.score == player2.score) {
+        if (score1.getText().equals(score2.getText())) {
             text = "Draw";
         } else if (player1.score > player2.score) {
             text = player1.getName() + " Is winner";
